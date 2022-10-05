@@ -25,6 +25,8 @@ namespace LogicaAplicacion.CasosUso.CasosUsoSeleccion
             {
                 throw new Exception("No se pudo dar de alta la seleccion", e);
             }
+
+            //comentarios para agergar
         }
     }
 }
