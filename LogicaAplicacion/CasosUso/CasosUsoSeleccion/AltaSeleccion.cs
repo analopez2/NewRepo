@@ -9,12 +9,14 @@ namespace LogicaAplicacion.CasosUso.CasosUsoSeleccion
 {
     class AltaSeleccion : IAltaSeleccion
     {
-        public IRepositorio<Seleccion> RepoSelecciones { get; set; }
+        public IRepositorioSelecciones RepoSelecciones { get; set; }
 
-        public AltaSeleccion(IRepositorio<Seleccion> repoSeleccion)
+        public AltaSeleccion(IRepositorioSelecciones repoSelecciones)
         {
-            RepoSelecciones = repoSeleccion;
+            RepoSelecciones = repoSelecciones;
         }
+
+
         public void Add(Seleccion seleccion)
         {
             try
@@ -25,8 +27,6 @@ namespace LogicaAplicacion.CasosUso.CasosUsoSeleccion
             {
                 throw new Exception("No se pudo dar de alta la seleccion", e);
             }
-
-            //comentarios para agergar
         }
     }
 }
