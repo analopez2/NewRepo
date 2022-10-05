@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CasosUso\CasosUsoPartido\" />
     <Folder Include="CasosUso\CasosUsoRegion\" />
   </ItemGroup>
 
