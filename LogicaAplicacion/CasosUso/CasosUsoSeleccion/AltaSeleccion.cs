@@ -6,5 +6,6 @@ namespace LogicaAplicacion.CasosUso.CasosUsoSeleccion
 {
     class AltaSeleccion
     {
+        //coment
     }
 }
