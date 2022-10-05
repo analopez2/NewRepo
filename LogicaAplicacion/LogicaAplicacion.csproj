@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogicaNegocio\LogicaNegocio.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CasosUso\CasosUsoIncidencia\" />
+    <Folder Include="CasosUso\CasosUsoPartido\" />
+    <Folder Include="CasosUso\CasosUsoRegion\" />
+    <Folder Include="CasosUso\CasosUsoSeleccion\" />
+  </ItemGroup>
+
+</Project>
