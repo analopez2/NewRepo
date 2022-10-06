@@ -9,11 +9,11 @@ namespace LogicaAplicacion.CasosUso.CasosUsoEstado
 {
     public class ActualizarEstado: IActualizarEstado
     {
-        public IRepositorio<Estado> RepoEstados { get; set; }
+        public IRepositorioEstados RepoEstados { get; set; }
 
-        public ActualizarEstado(IRepositorio<Estado> repoEstado)
+        public ActualizarEstado(IRepositorioEstados repoEstados)
         {
-            RepoEstados = repoEstado;
+            RepoEstados = repoEstados;
         }
 
         public void Update(Estado nuevo)

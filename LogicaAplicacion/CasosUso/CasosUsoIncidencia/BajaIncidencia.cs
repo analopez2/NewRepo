@@ -9,11 +9,11 @@ namespace LogicaAplicacion.CasosUso.CasosUsoIncidencia
 {
     public class BajaIncidencia : IBajaIncidencia
     {
-        public IRepositorio<Incidencia> RepoIncidencias { get; set; }
+        public IRepositorioIncidencias RepoIncidencias { get; set; }
 
-        public BajaIncidencia(IRepositorio<Incidencia> repoIncidencia)
+        public BajaIncidencia(IRepositorioIncidencias repoIncidencias)
         {
-            RepoIncidencias = repoIncidencia;
+            RepoIncidencias = repoIncidencias;
         }
         public void Remove(int id)
         {

@@ -8,5 +8,11 @@ namespace LogicaNegocio.Dominio
     {
         public int Id { get; set; }
         public string Hora { get; set; }
+        public void Validar()
+        {
+
+        }
+
     }
+    
 }

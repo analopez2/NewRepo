@@ -7,13 +7,13 @@ using System.Text;
 
 namespace LogicaAplicacion.CasosUso.CasosUsoHorario
 {
-    class ObtenerHorario : IObtenerHorario
+    public class ObtenerHorario : IObtenerHorario
     {
-        public IRepositorio<Horario> RepoHorarios { get; set; }
+        public IRepositorioHorarios RepoHorarios { get; set; }
 
-        public ObtenerHorario(IRepositorio<Horario> repoHorario)
+        public ObtenerHorario(IRepositorioHorarios repoHorarios)
         {
-            RepoHorarios = repoHorario;
+            RepoHorarios = repoHorarios;
         }
         public void FindById(int id)
         {

@@ -9,11 +9,11 @@ namespace LogicaAplicacion.CasosUso.CasosUsoIncidencia
 {
     public class ActualizarIncidencia : IActualizarIncidencia
     {
-        public IRepositorio<Incidencia> RepoIncidencias { get; set; }
+        public IRepositorioIncidencias RepoIncidencias { get; set; }
 
-        public ActualizarIncidencia(IRepositorio<Incidencia> repoIncidencia)
+        public ActualizarIncidencia(IRepositorioIncidencias repoIncidencias)
         {
-            RepoIncidencias = repoIncidencia;
+            RepoIncidencias = repoIncidencias;
         }
         public void Update(Incidencia obj)
         {

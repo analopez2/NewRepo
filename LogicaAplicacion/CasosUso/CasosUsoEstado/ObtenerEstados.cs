@@ -10,11 +10,11 @@ namespace LogicaAplicacion.CasosUso.CasosUsoEstado
 {
     public class ObtenerEstados : IObtenerEstados
     {
-        public IRepositorio<Estado> RepoEstados { get; set; }
+        public IRepositorioEstados RepoEstados { get; set; }
 
-        public ObtenerEstados(IRepositorio<Estado> repoEstado)
+        public ObtenerEstados(IRepositorioEstados repoEstados)
         {
-            RepoEstados = repoEstado;
+            RepoEstados = repoEstados;
         }
 
         public void FindAll(Estado obj)
