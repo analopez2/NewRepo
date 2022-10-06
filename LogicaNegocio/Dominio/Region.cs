@@ -13,7 +13,16 @@ namespace LogicaNegocio.Dominio
 
         public void Validar()
         {
-            
+            ValidarRegion();
+        }
+
+        private void ValidarRegion()
+        {
+            List<string> regiones = new List<string> { "África", "América", "Asia", "Europa", "Oceania" };
+            if (!regiones.Contains(Nombre))
+            {
+                throw new Exception("La región debe ser un continente válido");
+            }
         }
     }
 }
