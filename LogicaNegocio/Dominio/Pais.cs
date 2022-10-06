@@ -66,7 +66,7 @@ namespace LogicaNegocio.Dominio
                 throw new Exception("El código del país debe comenzar con la misma letra que el nombre del país");
             }
         }
-
+       
         private void ValidarRegion()
         {
             List<string> regiones = new List<string> { "África", "América", "Asia", "Europa", "Oceania" };
