@@ -57,11 +57,8 @@ namespace LogicaAccesoDatos.BaseDatos
 
         public IEnumerable<Pais> PaisesPorRegion(Region region)
         {
-            return Contexto.Paises.Where(pais=>pais.Region.Id==region.Id)
-                   .Include(re => re.Pais)
-                   //.Include(au => au.PublicacionesAutor)
-                   //.ThenInclude(pa => pa.Publicacion)
-                   .ToList();
+            return Contexto.Paises.Where(pais=>pais.Region.Id==region.Id).ToList();
+
         }
 
         public void Remove(int Id)
