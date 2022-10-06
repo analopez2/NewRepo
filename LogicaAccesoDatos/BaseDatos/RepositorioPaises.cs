@@ -72,11 +72,17 @@ namespace LogicaAccesoDatos.BaseDatos
         {
             try
             {
-                //Validar que no se encuentre vinculado con ninguna seleccion o región. 
                 Pais paisABorrar = FindById(Id);
                 if (paisABorrar == null) throw new Exception("No existe el país a borrar");
+
+                var selecciones = Contexto.Selecciones.Where(s => s.Pais.Id == Id);
+                bool haySeleccionesDelPais = selecciones.Count() > 0;
+
+                if (haySeleccionesDelPais) throw new Exception("No se puede borrar el pais porque existen selecciones pertenecientes a dicho país");
+                
                 Contexto.Paises.Remove(paisABorrar);
                 Contexto.SaveChanges();
+
             } catch (Exception e)
             {
                 throw new Exception("No se pudo borrar el país", e);
