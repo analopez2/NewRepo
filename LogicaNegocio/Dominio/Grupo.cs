@@ -14,7 +14,16 @@ namespace LogicaNegocio.Dominio
 
         public void Validar()
         {
-            throw new NotImplementedException();
+            ValidarGrupo();
+        }
+
+        private void ValidarGrupo()
+        {
+            List<string> grupos = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H"};
+            if (!grupos.Contains(Nombre.ToUpper()))
+            {
+                throw new Exception("El nombre del grupo debe ser una letra de la A a la H");
+            }
         }
     }
 }

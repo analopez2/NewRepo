@@ -18,8 +18,8 @@ namespace LogicaNegocio.Dominio
 
         private void ValidarRegion()
         {
-            List<string> regiones = new List<string> { "África", "América", "Asia", "Europa", "Oceania" };
-            if (!regiones.Contains(Nombre))
+            List<string> regiones = new List<string> { "AFRICA", "AMERICA", "ASIA", "EUROPA", "OCEANIA" };
+            if (!regiones.Contains(Nombre.ToUpper()))
             {
                 throw new Exception("La región debe ser un continente válido");
             }

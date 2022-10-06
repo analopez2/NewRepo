@@ -26,7 +26,7 @@ namespace LogicaAccesoDatos.BaseDatos
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<Autor>().ToTable("Autor");
-            //modelBuilder.Entity<Autor>().HasIndex(autor => autor.Documento).IsUnique(true);
+            modelBuilder.Entity<Seleccion>().HasIndex(s => s.PaisId).IsUnique(true);
             //modelBuilder.Entity<Autor>().Property(autor => autor.Documento).IsRequired(true);
             //modelBuilder.Entity<Autor>().Property(autor => autor.Nombre).IsRequired(true).HasMaxLength(50);
             //modelBuilder.Entity<AutorPublicacion>().HasKey(ap => new { ap.AutorId, ap.PublicacionId });
