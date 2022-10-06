@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace LogicaNegocio.Dominio
 {
@@ -22,7 +23,26 @@ namespace LogicaNegocio.Dominio
 
         public void Validar()
         {
-            throw new NotImplementedException();
+            ValidarNombre();
+            ValidarTelefono();
+        }
+
+        private void ValidarNombre()
+        {
+            if (string.IsNullOrEmpty(Nombre)) throw new Exception("El nombre de la persona de contacto es obligatorio");
+            if (Nombre.Length < 3) throw new Exception("El nombre de la persona de contacto debe tener al menos 3 caracteres");
+            if (!Regex.IsMatch(Nombre, "^[a-zA-Z]+((\\s[a-zA-Z]+)?)*$")) throw new Exception("El nombre de la persona de contacto solo puede contener letras y espacios embebidos");
+        }
+
+        private void ValidarTelefono()
+        {
+            if (Telefono.Length < 7) throw new Exception("El telefono debe por lo menos tener 7 caracteres");
+
+        }
+
+        private void ValidarEmail()
+        {
+            if(!Regex.IsMatch(Email, "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")) throw new Exception("El email debe ser una dirección válida");
         }
     }
 }
