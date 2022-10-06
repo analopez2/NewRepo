@@ -9,7 +9,7 @@ namespace LogicaAccesoDatos.BaseDatos
 {
     public class RepositorioPaises : IRepositorioPaises
     {
-        public LibreriaContext Contexto { get; set; }
+       public LibreriaContext Contexto { get; set; }
 
        public RepositorioPaises(LibreriaContext ctx)
         {

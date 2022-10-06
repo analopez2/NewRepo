@@ -9,11 +9,11 @@ namespace LogicaAplicacion.CasosUso.CasosUsoIncidencia
 {
     public class ObtenerIncidencias : IObtenerIncidencias
     {
-        public IRepositorio<Incidencia> RepoIncidencias { get; set; }
+        public IRepositorioIncidencias RepoIncidencias { get; set; }
 
-        public ObtenerIncidencias(IRepositorio<Incidencia> repoIncidencia)
+        public ObtenerIncidencias(IRepositorioIncidencias repoIncidencias)
         {
-            RepoIncidencias = repoIncidencia;
+            RepoIncidencias = repoIncidencias;
         }
         public void FindAll(Incidencia obj)
         {

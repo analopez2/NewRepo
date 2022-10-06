@@ -9,11 +9,11 @@ namespace LogicaAplicacion.CasosUso.CasosUsoHorario
 {
     public class ActualizarHorario : IActualizarHorario
     {
-        public IRepositorio<Horario> RepoHorarios { get; set; }
+        public IRepositorioHorarios RepoHorarios { get; set; }
 
-        public ActualizarHorario(IRepositorio<Horario> repoHorario)
+        public ActualizarHorario(IRepositorioHorarios repoHorarios)
         {
-            RepoHorarios = repoHorario;
+            RepoHorarios = repoHorarios;
         }
         public void Update(Horario obj)
         {

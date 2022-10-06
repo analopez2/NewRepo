@@ -9,11 +9,11 @@ namespace LogicaAplicacion.CasosUso.CasosUsoIncidencia
 {
     public class ObtenerIncidencia : IObtenerIncidencia
     {
-        public IRepositorio<Incidencia> RepoIncidencias { get; set; }
+        public IRepositorioIncidencias RepoIncidencias { get; set; }
 
-        public ObtenerIncidencia(IRepositorio<Incidencia> repoIncidencia)
+        public ObtenerIncidencia(IRepositorioIncidencias repoIncidencias)
         {
-            RepoIncidencias = repoIncidencia;
+            RepoIncidencias = repoIncidencias;
         }
 
         public void FindById(int id)
