@@ -63,12 +63,32 @@ namespace LogicaAccesoDatos.BaseDatos
 
         public void Remove(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Validar que no se encuentre vinculada con ningun pais. 
+                Region regionABorrar = FindById(Id);
+                if( regionABorrar == null) throw new Exception("No existe la region");
+                Contexto.Regiones.Remove(regionABorrar);
+                Contexto.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se pudo borrar la region", e);
+            }
         }
 
         public void Update(Region obj)
         {
-            throw new NotImplementedException();
+            try
+            {
+                obj.Validar();
+                Contexto.Regiones.Update(obj);
+                Contexto.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se pudo actualizar la region", e);
+            }
         }
     }
 }
