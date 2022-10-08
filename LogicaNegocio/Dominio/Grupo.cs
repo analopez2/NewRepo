@@ -10,7 +10,6 @@ namespace LogicaNegocio.Dominio
         public int Id { get; set; }
         public string Nombre { get; set; }
         public IEnumerable<PartidoGrupo> PartidoGrupo { get; set; }
-        public IEnumerable<SeleccionGrupo> SeleccionGrupo { get; set; }
 
         public void Validar()
         {
