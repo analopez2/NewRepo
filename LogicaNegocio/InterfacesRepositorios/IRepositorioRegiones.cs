@@ -7,6 +7,5 @@ namespace LogicaNegocio.InterfacesRepositorios
 {
      public interface IRepositorioRegiones:IRepositorio<Region>
     {
-        IEnumerable<Pais> PaisesPorRegion(Region region);
     }
 }
