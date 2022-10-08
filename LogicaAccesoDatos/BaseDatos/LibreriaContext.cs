@@ -30,6 +30,8 @@ namespace LogicaAccesoDatos.BaseDatos
             //modelBuilder.Entity<Autor>().Property(autor => autor.Documento).IsRequired(true);
             //modelBuilder.Entity<Autor>().Property(autor => autor.Nombre).IsRequired(true).HasMaxLength(50);
             modelBuilder.Entity<SeleccionPartido>().HasKey(sp => new { sp.PartidoId, sp.SeleccionId });
+            modelBuilder.Entity<IncidenciaPartido>().HasKey(IPa => new { IPa.PartidoId, IPa.IncidenciaId });
+            modelBuilder.Entity<PartidoGrupo>().HasKey(PaG => new { PaG.PartidoId, PaG.GrupoId });
             //base.OnModelCreating(modelBuilder);
         }
     }

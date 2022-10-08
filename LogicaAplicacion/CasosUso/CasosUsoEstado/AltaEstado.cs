@@ -9,7 +9,7 @@ namespace LogicaAplicacion.CasosUso
 {
     public class AltaEstado: IAltaEstado
     {
-        public IRepositoriEstados RepoEstados { get; set; }
+        public IRepositorioEstados RepoEstados { get; set; }
 
         public AltaEstado(IRepositorioEstados repoEstados)
         {
