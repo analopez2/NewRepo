@@ -3,18 +3,18 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using LogicaAccesoDatos.BaseDatos;
-using LogicaNegocio.Dominio;
-using LogicaNegocio.InterfacesRepositorios;
-
-using LogicaAplicacion.InterfacesCasosUso;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using LogicaNegocio.InterfacesRepositorios;
+using LogicaAplicacion.InterfacesCasosUso;
 using LogicaAplicacion.InterfacesCasosUso.ICasosUsoPais;
 using LogicaAplicacion.CasosUso.CasosUsoPais;
+using LogicaAccesoDatos.BaseDatos;
+using Microsoft.EntityFrameworkCore;
+using LogicaNegocio.Dominio;
+
 
 namespace WebMVC
 {
@@ -32,7 +32,7 @@ namespace WebMVC
         {
             services.AddControllersWithViews();
             //Contexto EntityFramework
-            string strCon = Configuration.GetConnectionString("ConeccionAlvaro");
+            string strCon = Configuration.GetConnectionString("ConeccionAna");
             services.AddDbContext<LibreriaContext>(options => options.UseSqlServer(strCon));
             // INYECCIONES PARA CONTROLLERS(CU)
             services.AddScoped<IAltaPais, AltaPais>();
@@ -47,6 +47,7 @@ namespace WebMVC
 
             //INYECCIONES PARA CU (REPOS)
             services.AddScoped<IRepositorioPaises, RepositorioPaises>();
+            services.AddScoped<IRepositorioSelecciones, RepositorioSelecciones>();
 
         }
 

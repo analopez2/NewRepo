@@ -1,5 +1,6 @@
 ﻿using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,7 +85,7 @@ namespace LogicaAccesoDatos.BaseDatos
         {
             try
             {
-                return Contexto.Selecciones.ToList();
+                return Contexto.Selecciones.Include(s => s.Pais).Include(s => s.Grupo).ToList();
             }
             catch (Exception e)
             {
