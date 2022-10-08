@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LogicaAplicacion.InterfacesCasosUso.ICasosUsoPais
 {
-    interface IBuscarPaisPorCodigoAlfa
+     public interface IBuscarPaisPorCodigoAlfa
     {
         Pais BuscarPorCodAlfa(string codAlfa);
     }

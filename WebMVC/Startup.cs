@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using LogicaAccesoDatos.BaseDatos;
 using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
-using LogicaAplicacion.CasosUso;
+
 using LogicaAplicacion.InterfacesCasosUso;
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using LogicaAplicacion.InterfacesCasosUso.ICasosUsoPais;
+using LogicaAplicacion.CasosUso.CasosUsoPais;
 
 namespace WebMVC
 {
@@ -35,6 +36,12 @@ namespace WebMVC
             services.AddDbContext<LibreriaContext>(options => options.UseSqlServer(strCon));
             // INYECCIONES PARA CONTROLLERS(CU)
             services.AddScoped<IAltaPais, AltaPais>();
+            services.AddScoped<IActualizarPais, ActualizarPais>();
+            services.AddScoped<IBajaPais, BajaPais>();
+            services.AddScoped<IBuscarPaisesPorRegion, BuscarPaisesPorRegion>();
+            services.AddScoped<IBuscarPaisPorCodigoAlfa, BuscarPaisPorCodAlfa>();
+            services.AddScoped<IObtenerPais, ObtenerPais>();
+            services.AddScoped<IObtenerPaises, ObtenerPaises >();
 
 
 
