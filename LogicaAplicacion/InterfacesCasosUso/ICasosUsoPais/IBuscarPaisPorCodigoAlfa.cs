@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LogicaNegocio.InterfacesRepositorios
+namespace LogicaAplicacion.InterfacesCasosUso.ICasosUsoPais
 {
-   public  interface IRepositorioPaises:IRepositorio<Pais>
+    interface IBuscarPaisPorCodigoAlfa
     {
         Pais BuscarPorCodAlfa(string codAlfa);
-        IEnumerable<Pais> PaisesPorRegion(int regionId);
     }
 }

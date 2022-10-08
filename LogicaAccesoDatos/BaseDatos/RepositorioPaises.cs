@@ -38,7 +38,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 return p;
             } catch (Exception e)
             {
-                throw new Exception("No se pudo encontrar un país", e);
+                throw new Exception("No se pudo encontrar el país", e);
             }
 
         }
@@ -67,6 +67,17 @@ namespace LogicaAccesoDatos.BaseDatos
                 throw new Exception("No se pudo encontrar el país", e);
             }
         }
+
+        public IEnumerable<Pais> PaisesPorRegion(int regionId)
+        {
+            try {
+                return Contexto.Paises.Where(pais => pais.RegionInd == regionId).ToList();
+            } catch (Exception e)
+            {
+                throw new Exception("No se encontraron paises", e);
+            }
+        }
+
 
         public void Remove(int Id)
         {

@@ -9,7 +9,6 @@ namespace LogicaNegocio.Dominio
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public IEnumerable<PaisRegion> PaisRegion { get; set; }
 
         public void Validar()
         {

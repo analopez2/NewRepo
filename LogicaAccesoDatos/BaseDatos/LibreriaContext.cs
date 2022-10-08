@@ -29,7 +29,7 @@ namespace LogicaAccesoDatos.BaseDatos
             modelBuilder.Entity<Seleccion>().HasIndex(s => s.PaisId).IsUnique(true);
             //modelBuilder.Entity<Autor>().Property(autor => autor.Documento).IsRequired(true);
             //modelBuilder.Entity<Autor>().Property(autor => autor.Nombre).IsRequired(true).HasMaxLength(50);
-            //modelBuilder.Entity<AutorPublicacion>().HasKey(ap => new { ap.AutorId, ap.PublicacionId });
+            modelBuilder.Entity<SeleccionPartido>().HasKey(sp => new { sp.PartidoId, sp.SeleccionId });
             //base.OnModelCreating(modelBuilder);
         }
     }
