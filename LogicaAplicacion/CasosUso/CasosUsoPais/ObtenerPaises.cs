@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LogicaAplicacion.CasosUso
+namespace LogicaAplicacion.CasosUso.CasosUsoPais
 {
     public class ObtenerPaises : IObtenerPaises
     {

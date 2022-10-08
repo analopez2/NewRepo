@@ -7,7 +7,7 @@ using System.Text;
 
 namespace LogicaAplicacion.CasosUso.CasosUsoPais
 {
-    class BuscarPaisesPorRegion : IBuscarPaisesPorRegion
+    public class BuscarPaisesPorRegion : IBuscarPaisesPorRegion
     {
         public IRepositorioPaises RepoPaises { get; set; }
 
