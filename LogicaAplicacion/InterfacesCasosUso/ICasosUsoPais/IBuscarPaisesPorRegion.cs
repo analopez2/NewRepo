@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LogicaAplicacion.InterfacesCasosUso.ICasosUsoPais
 {
-    interface IBuscarPaisesPorRegion
+    public  interface IBuscarPaisesPorRegion
     {
       IEnumerable<Pais> PaisesPorRegion(int regionId);
     }
