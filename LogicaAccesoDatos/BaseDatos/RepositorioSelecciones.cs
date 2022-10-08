@@ -41,13 +41,9 @@ namespace LogicaAccesoDatos.BaseDatos
             {
                 Seleccion seleccionABorrar = FindById(Id);
                 if (seleccionABorrar == null) throw new Exception("No existe la seleccion a borrar");
+                if (seleccionABorrar.PaisId!=0) throw new Exception("No se puede borrar la seleccion porque esta asociada a un pais");
+                if (seleccionABorrar.GrupoId!= 0) throw new Exception("No se puede borrar la seleccion porque esta asociada a un grupo");
 
-                var pais = Contexto.Paises.Where(p => p..Id == Id);
-                bool haySeleccionesDelPais = selecciones.Count() > 0;
-
-                if (haySeleccionesDelPais) throw new Exception("No se puede borrar el pais porque existen selecciones pertenecientes a dicho país");
-
-               
                 Contexto.Selecciones.Remove(seleccionABorrar);
                 Contexto.SaveChanges();
             }
