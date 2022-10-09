@@ -22,7 +22,7 @@ namespace LogicaNegocio.Dominio
             List<string> grupos = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H"};
             if (!grupos.Contains(Nombre.ToUpper()))
             {
-                throw new Exception("El nombre del grupo debe ser una letra de la A a la H");
+                throw new Exception("ERROR GRUPO | El nombre del grupo debe ser una letra de la A a la H");
             }
         }
     }

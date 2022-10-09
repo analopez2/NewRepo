@@ -3,20 +3,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using LogicaAccesoDatos.BaseDatos;
-using LogicaNegocio.Dominio;
-using LogicaNegocio.InterfacesRepositorios;
-
-using LogicaAplicacion.InterfacesCasosUso;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using LogicaNegocio.InterfacesRepositorios;
+using LogicaAplicacion.InterfacesCasosUso;
 using LogicaAplicacion.InterfacesCasosUso.ICasosUsoPais;
 using LogicaAplicacion.CasosUso.CasosUsoPais;
 using LogicaAplicacion.InterfacesCasosUso.ICasosUsoRegion;
 using LogicaAplicacion.CasosUso.CasosUsoRegion;
+using LogicaAccesoDatos.BaseDatos;
+using Microsoft.EntityFrameworkCore;
+using LogicaNegocio.Dominio;
 
 namespace WebMVC
 {
@@ -51,6 +50,7 @@ namespace WebMVC
             //INYECCIONES PARA CU (REPOS)
             services.AddScoped<IRepositorioPaises, RepositorioPaises>();
             services.AddScoped<IRepositorioRegiones, RepositorioRegiones>();
+            services.AddScoped<IRepositorioSelecciones, RepositorioSelecciones>();
 
         }
 
