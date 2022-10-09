@@ -27,6 +27,9 @@ namespace LogicaAccesoDatos.BaseDatos
         {
             //modelBuilder.Entity<Autor>().ToTable("Autor");
             modelBuilder.Entity<Seleccion>().HasIndex(s => s.PaisId).IsUnique(true);
+            modelBuilder.Entity<Grupo>().HasIndex(g => g.Nombre).IsUnique(true);
+            modelBuilder.Entity<Seleccion>().HasIndex(s => s.Telefono).IsUnique(true);
+            modelBuilder.Entity<Seleccion>().HasIndex(s => s.Email).IsUnique(true);
             //modelBuilder.Entity<Autor>().Property(autor => autor.Documento).IsRequired(true);
             //modelBuilder.Entity<Autor>().Property(autor => autor.Nombre).IsRequired(true).HasMaxLength(50);
             modelBuilder.Entity<SeleccionPartido>().HasKey(sp => new { sp.PartidoId, sp.SeleccionId });

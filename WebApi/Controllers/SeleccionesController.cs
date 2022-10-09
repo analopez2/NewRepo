@@ -57,24 +57,54 @@ namespace WebApi.Controllers
 
         // POST api/<SeleccionesController>
         [HttpPost]
-        public void Post([FromBody] Seleccion seleccion)
+        public IActionResult Post([FromBody] Seleccion seleccion)
         {
-            //Add
-            RepoSelecciones.Add(seleccion);
+            try
+            {
+                if (seleccion == null) return BadRequest("Body vacío");
+                RepoSelecciones.Add(seleccion);
+                return Created("api/selecciones/" + seleccion.Id, seleccion);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("ERROR SELECCION")) return BadRequest(ex.Message);
+                return StatusCode(500);                
+            }
         }
 
         // PUT api/<SeleccionesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Seleccion value)
+        public IActionResult Put(int id, [FromBody] Seleccion seleccion)
         {
-            //Update
+           try
+            {
+                if (id == 0 || seleccion == null) return BadRequest("El id no puede ser 0 o faltan datos");
+                seleccion.Id = id;
+                RepoSelecciones.Update(seleccion);
+                return Ok(seleccion);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("ERROR SELECCION")) return BadRequest(ex.Message);
+                return StatusCode(500);
+            }
         }
 
         // DELETE api/<SeleccionesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            //Remove
+            try
+            {
+                if (id == 0) return BadRequest();
+                RepoSelecciones.Remove(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException.Message.Contains("ERROR SELECCION")) return BadRequest(ex.InnerException.Message);
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

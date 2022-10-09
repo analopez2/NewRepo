@@ -26,7 +26,8 @@ namespace LogicaAccesoDatos.BaseDatos
             }
             catch(Exception e)
             {
-                throw new Exception("No se pudo dar de alta el grupo", e);
+                if (e.Message.Contains("ERROR GRUPO")) throw e;
+                throw new Exception("No se puedo dar de alta el grupo");
             }
         }
 
@@ -45,7 +46,7 @@ namespace LogicaAccesoDatos.BaseDatos
         {
             try
             {
-                if (Id == 0) throw new Exception("El id de grupo no puede ser 0");
+                if (Id == 0) throw new Exception("ERROR GRUPO | El id de grupo no puede ser 0");
                 return Contexto.Grupos.Find(Id);
             } catch (Exception e)
             {
@@ -59,7 +60,7 @@ namespace LogicaAccesoDatos.BaseDatos
             {            
                 //Validar que no se encuentre vinculado con ninguna seleccion o partido. 
                 Grupo grupoABorrar = FindById(Id);
-                if (grupoABorrar == null) throw new Exception("No existe el grupo a borrar");
+                if (grupoABorrar == null) throw new Exception("ERROR GRUPO | No existe el grupo a borrar");
 
                 Contexto.Grupos.Remove(grupoABorrar);
                 Contexto.SaveChanges();
