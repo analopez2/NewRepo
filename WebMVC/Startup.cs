@@ -11,10 +11,11 @@ using LogicaNegocio.InterfacesRepositorios;
 using LogicaAplicacion.InterfacesCasosUso;
 using LogicaAplicacion.InterfacesCasosUso.ICasosUsoPais;
 using LogicaAplicacion.CasosUso.CasosUsoPais;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoRegion;
+using LogicaAplicacion.CasosUso.CasosUsoRegion;
 using LogicaAccesoDatos.BaseDatos;
 using Microsoft.EntityFrameworkCore;
 using LogicaNegocio.Dominio;
-
 
 namespace WebMVC
 {
@@ -42,11 +43,13 @@ namespace WebMVC
             services.AddScoped<IBuscarPaisPorCodigoAlfa, BuscarPaisPorCodAlfa>();
             services.AddScoped<IObtenerPais, ObtenerPais>();
             services.AddScoped<IObtenerPaises, ObtenerPaises >();
+            services.AddScoped<IObtenerRegiones, ObtenerRegiones>();
 
 
 
             //INYECCIONES PARA CU (REPOS)
             services.AddScoped<IRepositorioPaises, RepositorioPaises>();
+            services.AddScoped<IRepositorioRegiones, RepositorioRegiones>();
             services.AddScoped<IRepositorioSelecciones, RepositorioSelecciones>();
 
         }
@@ -72,7 +75,7 @@ namespace WebMVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Paises}/{action=Index}/{id?}");
             });
         }
     }

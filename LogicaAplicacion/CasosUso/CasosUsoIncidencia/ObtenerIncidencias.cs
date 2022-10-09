@@ -26,5 +26,17 @@ namespace LogicaAplicacion.CasosUso.CasosUsoIncidencia
                 throw new Exception("No se pudieron obtener las incidencias", e);
             }
         }
+
+        public IEnumerable<Incidencia> FindAll()
+        {
+            try
+            {
+               return RepoIncidencias.FindAll();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se pudieron obtener las incidencias", e);
+            }
+        }
     }
 }

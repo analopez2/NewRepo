@@ -1,4 +1,5 @@
-﻿using LogicaAplicacion.InterfacesCasosUso.ICasosUsoPais;
+﻿using LogicaAplicacion.InterfacesCasosUso;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoPais;
 using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
 using System;
@@ -16,17 +17,7 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPais
             RepoPaises = repoPaises;
         }
 
-        public void FindById(int id)
-        {
-            try
-            {
-                RepoPaises.FindById(id);
-            }
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo obter el pais con el id indicado", e);
-            }
-        }
+       
 
         public void ObtenerPaisPorCodAlfa3(string codAlfa)
         {
@@ -37,6 +28,18 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPais
             catch (Exception e)
             {
                 throw new Exception("No se pudo obter el pais con el código alfa-3 indicado", e);
+            }
+        }
+
+        Pais IObtenerObjeto<Pais>.FindById(int id)
+        {
+            try
+            {
+               return RepoPaises.FindById(id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se pudo obter el pais con el id indicado", e);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using LogicaAplicacion.InterfacesCasosUso.ICasosUsoEstado;
+﻿using LogicaAplicacion.InterfacesCasosUso;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoEstado;
 using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
 using System;
@@ -16,11 +17,12 @@ namespace LogicaAplicacion.CasosUso.CasosUsoEstado
             RepoEstados = repoEstados;
         }
 
-        public void FindById(int id)
+       
+        Estado IObtenerObjeto<Estado>.FindById(int id)
         {
             try
             {
-                RepoEstados.FindById(id);
+               return RepoEstados.FindById(id);
             }
             catch (Exception e)
             {

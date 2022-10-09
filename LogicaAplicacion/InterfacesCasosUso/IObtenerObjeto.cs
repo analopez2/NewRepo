@@ -6,6 +6,6 @@ namespace LogicaAplicacion.InterfacesCasosUso
 {
      public interface IObtenerObjeto<T>
     {
-        void FindById(int id);
+        public T FindById(int id);
     }
 }

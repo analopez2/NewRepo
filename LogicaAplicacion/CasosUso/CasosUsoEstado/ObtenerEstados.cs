@@ -17,11 +17,13 @@ namespace LogicaAplicacion.CasosUso.CasosUsoEstado
             RepoEstados = repoEstados;
         }
 
-        public void FindAll(Estado obj)
+       
+
+        public IEnumerable<Estado> FindAll()
         {
             try
             {
-                RepoEstados.FindAll();
+                return RepoEstados.FindAll();
             }
             catch (Exception e)
             {

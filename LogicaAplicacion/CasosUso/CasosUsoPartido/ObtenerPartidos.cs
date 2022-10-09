@@ -15,11 +15,12 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPartido
         {
             RepoPartidos = repoPartidos;
         }
-        public void FindAll(Partido obj)
+       
+        public IEnumerable<Partido> FindAll()
         {
             try
             {
-                RepoPartidos.FindAll();
+               return RepoPartidos.FindAll();
             }
             catch (Exception e)
             {

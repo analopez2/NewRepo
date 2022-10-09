@@ -1,4 +1,5 @@
-﻿using LogicaAplicacion.InterfacesCasosUso.ICasosUsoHorario;
+﻿using LogicaAplicacion.InterfacesCasosUso;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoHorario;
 using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
 using System;
@@ -15,11 +16,13 @@ namespace LogicaAplicacion.CasosUso.CasosUsoHorario
         {
             RepoHorarios = repoHorarios;
         }
-        public void FindById(int id)
+       
+
+        Horario IObtenerObjeto<Horario>.FindById(int id)
         {
             try
             {
-                RepoHorarios.FindById(id);
+                return RepoHorarios.FindById(id);
             }
             catch (Exception e)
             {

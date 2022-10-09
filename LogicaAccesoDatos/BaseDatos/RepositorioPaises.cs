@@ -71,7 +71,7 @@ namespace LogicaAccesoDatos.BaseDatos
         public IEnumerable<Pais> PaisesPorRegion(int regionId)
         {
             try {
-                return Contexto.Paises.Where(pais => pais.RegionInd == regionId).ToList();
+                return Contexto.Paises.Where(pais => pais.RegionId == regionId).ToList();
             } catch (Exception e)
             {
                 throw new Exception("No se encontraron paises", e);

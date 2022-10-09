@@ -15,11 +15,13 @@ namespace LogicaAplicacion.CasosUso.CasosUsoHorario
         {
             RepoHorarios = repoHorarios;
         }
-        public void FindAll(Horario obj)
+       
+
+        public IEnumerable<Horario> FindAll()
         {
             try
             {
-                RepoHorarios.FindAll();
+                return RepoHorarios.FindAll();
             }
             catch (Exception e)
             {
