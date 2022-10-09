@@ -57,20 +57,54 @@ namespace WebApi.Controllers
 
         // POST api/<GruposController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Grupo grupo)
         {
+            try
+            {
+                if (grupo == null) return BadRequest("Empty Body");
+                RepoGrupos.Add(grupo);
+                return Created("api/grupos/" + grupo.Id, grupo);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("ERROR GRUPO")) return BadRequest(ex.Message);
+                return StatusCode(500);
+            }
         }
 
         // PUT api/<GruposController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Grupo grupo)
         {
+            try
+            {
+                if (id == 0 || grupo == null) return BadRequest("El id no puede ser 0 o faltan datos");
+                grupo.Id = id;
+                RepoGrupos.Update(grupo);
+                return Ok(grupo);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("ERROR GRUPO")) return BadRequest(ex.Message);
+                return StatusCode(500);
+            }
         }
 
         // DELETE api/<GruposController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                if (id == 0) return BadRequest();
+                RepoGrupos.Remove(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException.Message.Contains("ERROR GRUPO")) return BadRequest(ex.InnerException.Message);
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
