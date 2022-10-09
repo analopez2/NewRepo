@@ -1,4 +1,6 @@
-﻿using LogicaAplicacion.InterfacesCasosUso.ICasosUsoSeleccion;
+﻿using LogicaAplicacion.InterfacesCasosUso;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoSeleccion;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,15 @@ namespace LogicaAplicacion.CasosUso.CasosUsoSeleccion
 
         public ObtenerSeleccion(IRepositorioSelecciones repoSelecciones)
         {
-            RepoSelecciones = repoSelecciones;
-        }
+            RepoSelecciones = repoSelecciones;        }
 
 
-        public void FindById(int id)
+      
+        Seleccion IObtenerObjeto<Seleccion>.FindById(int id)
         {
             try
             {
-                RepoSelecciones.FindById(id);
+                 return RepoSelecciones.FindById(id);
             }
             catch (Exception e)
             {

@@ -1,4 +1,6 @@
-﻿using LogicaAplicacion.InterfacesCasosUso.ICasosUsoPartido;
+﻿using LogicaAplicacion.InterfacesCasosUso;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoPartido;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
@@ -16,16 +18,13 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPartido
             RepoPartidos = repoPartidos;
         }
 
-        public void FindById(int id)
+        Partido IObtenerObjeto<Partido>.FindById(int id)
         {
             try
             {
-                RepoPartidos.FindById(id);
+                return RepoPartidos.FindById(id);
             }
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo obter el pais con el id indicado", e);
-            }
+            catch (Exception e) { throw new Exception("No se pudo obter el partido con el id indicado", e); }
         }
     }
 }

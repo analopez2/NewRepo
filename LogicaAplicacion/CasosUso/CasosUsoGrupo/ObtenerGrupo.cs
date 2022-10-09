@@ -1,4 +1,5 @@
-﻿using LogicaAplicacion.InterfacesCasosUso.ICasosUsoGrupos;
+﻿using LogicaAplicacion.InterfacesCasosUso;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoGrupos;
 using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
 using System;
@@ -16,11 +17,13 @@ namespace LogicaAplicacion.CasosUso
             RepoGrupos = repoGrupos;
         }
 
-        public void FindById(int id)
+      
+
+        Grupo IObtenerObjeto<Grupo>.FindById(int id)
         {
             try
             {
-                RepoGrupos.FindById(id);
+               return RepoGrupos.FindById(id);
             }
             catch (Exception e)
             {

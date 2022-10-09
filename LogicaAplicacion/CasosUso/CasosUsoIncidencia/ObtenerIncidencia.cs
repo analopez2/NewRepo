@@ -1,4 +1,5 @@
-﻿using LogicaAplicacion.InterfacesCasosUso.ICasosUsoIncidencia;
+﻿using LogicaAplicacion.InterfacesCasosUso;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoIncidencia;
 using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
 using System;
@@ -16,11 +17,12 @@ namespace LogicaAplicacion.CasosUso.CasosUsoIncidencia
             RepoIncidencias = repoIncidencias;
         }
 
-        public void FindById(int id)
+      
+        Incidencia IObtenerObjeto<Incidencia>.FindById(int id)
         {
             try
             {
-                RepoIncidencias.FindById(id);
+               return RepoIncidencias.FindById(id);
             }
             catch (Exception e)
             {

@@ -6,6 +6,6 @@ namespace LogicaAplicacion.InterfacesCasosUso
 {
     public interface IObtenerObjetos<T>
     {
-        void FindAll(T obj);
+        IEnumerable<T> FindAll();
     }
 }

@@ -16,11 +16,13 @@ namespace LogicaAplicacion.CasosUso
             RepoGrupos = repoGrupos;
         }
 
-        public void FindAll(Grupo obj)
+       
+
+        public IEnumerable<Grupo> FindAll()
         {
             try
             {
-                RepoGrupos.FindAll();
+               return RepoGrupos.FindAll();
             }
             catch (Exception e)
             {

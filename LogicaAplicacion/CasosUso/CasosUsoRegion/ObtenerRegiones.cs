@@ -7,20 +7,20 @@ using System.Text;
 
 namespace LogicaAplicacion.CasosUso.CasosUsoRegion
 {
-    class ObtenerRegiones : IObtenerRegiones
+     public class ObtenerRegiones : IObtenerRegiones
     {
         public IRepositorioRegiones RepoRegiones { get; set; }
 
         public ObtenerRegiones(IRepositorioRegiones repoRegiones)
         {
             RepoRegiones = repoRegiones;
-        }
+        }      
 
-        public void FindAll(Region obj)
+        public IEnumerable<Region> FindAll()
         {
             try
             {
-                RepoRegiones.FindAll();
+               return RepoRegiones.FindAll();
             }
             catch (Exception e)
             {

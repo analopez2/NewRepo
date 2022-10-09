@@ -20,7 +20,7 @@ namespace LogicaNegocio.Dominio
         public int Poblacion { get; set; }
         public string Bandera { get; set; }
         public Region Region { get; set; }
-        public int RegionInd { get; set; }
+        public int RegionId { get; set; }
         public void Validar()
         {
             ValidarNombre();

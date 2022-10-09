@@ -17,11 +17,11 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPais
         }
 
 
-        public void FindAll(Pais obj)
+        public IEnumerable<Pais> FindAll()
         {
             try
             {
-                RepoPaises.FindAll();
+                return RepoPaises.FindAll();
             }
             catch (Exception e)
             {

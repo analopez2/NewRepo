@@ -1,4 +1,6 @@
-﻿using LogicaAplicacion.InterfacesCasosUso.ICasosUsoRegion;
+﻿using LogicaAplicacion.InterfacesCasosUso;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoRegion;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
@@ -12,20 +14,19 @@ namespace LogicaAplicacion.CasosUso.CasosUsoRegion
 
         public ObtenerRegion(IRepositorioRegiones repoRegiones)
         {
-            RepoRegiones = repoRegiones;
-        }
+            RepoRegiones = repoRegiones;       }
 
-        public void FindById(int id)
+       
+         Region IObtenerObjeto<Region>.FindById(int id)
         {
             try
             {
-                RepoRegiones.FindById(id);
+               return RepoRegiones.FindById(id);
             }
             catch (Exception e)
             {
                 throw new Exception("No se pudo obtener la region con el id indicado", e);
             }
-            
         }
     }
 }

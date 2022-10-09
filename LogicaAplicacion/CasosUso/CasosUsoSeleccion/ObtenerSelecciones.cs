@@ -16,11 +16,13 @@ namespace LogicaAplicacion.CasosUso.CasosUsoSeleccion
             RepoSelecciones = repoSelecciones;
         }
 
-        public void FindAll(Seleccion obj)
+       
+
+        public IEnumerable<Seleccion> FindAll()
         {
             try
             {
-                RepoSelecciones.FindAll();
+               return RepoSelecciones.FindAll();
             }
             catch (Exception e)
             {

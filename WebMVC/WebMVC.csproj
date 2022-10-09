@@ -18,4 +18,8 @@
     <ProjectReference Include="..\LogicaNegocio\LogicaNegocio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Banderas\" />
+  </ItemGroup>
+
 </Project>
