@@ -31,6 +31,7 @@ namespace WebApi
 
             services.AddScoped<IRepositorioSelecciones, RepositorioSelecciones>();
             services.AddScoped<IRepositorioGrupos, RepositorioGrupos>();
+            services.AddScoped<IRepositorioPartidos, RepositorioPartidos>();
 
             string strCon = Configuration.GetConnectionString("ConeccionAna");
             services.AddDbContext<LibreriaContext>(options => options.UseSqlServer(strCon));

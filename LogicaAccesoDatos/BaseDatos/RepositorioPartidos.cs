@@ -1,5 +1,6 @@
 ﻿using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,11 @@ namespace LogicaAccesoDatos.BaseDatos
             {
 
                 nuevo.Validar();
+                //Para validar el grupo hay que traer la info de seleccion por id antes y luego consultar si el grupo es distinto.
+                /*if (nuevo.SeleccionPartido.First().Seleccion.Grupo != nuevo.SeleccionPartido.Last().Seleccion.Grupo)
+                {
+                    throw new Exception("ERROR PARTIDO | Las selecciones deben pertenecer al mismo grupo");
+                }*/
 
                 IEnumerable<SeleccionPartido> partidosSeleccion1 = Contexto.SeleccionPartido
                     .Where(ps1 => ps1.SeleccionId == nuevo.SeleccionPartido.First().SeleccionId)
@@ -30,18 +36,42 @@ namespace LogicaAccesoDatos.BaseDatos
                     .Where(ps1 => ps1.SeleccionId == nuevo.SeleccionPartido.Last().SeleccionId)
                     .ToList();
 
-                if (partidosSeleccion1.Count() == 3 || partidosSeleccion2.Count() == 3)
+                if (partidosSeleccion1.Count() >= 3 || partidosSeleccion2.Count() >= 3)
                 {
-                    throw new Exception("El máximo de partidos por seleción es 3");
+                    throw new Exception("ERROR PARTIDO | El máximo de partidos por seleción es 3");
                 }
 
+                foreach (var p1 in partidosSeleccion1)
+                {
+                    foreach (var p2 in partidosSeleccion2)
+                    {
+                        if(p1.PartidoId == p2.PartidoId)
+                        {
+                            throw new Exception("ERROR PARTIDO | Estas selecciones ya jugaron entre sí");
+                        }
+                    }
+                }
 
+                IEnumerable<Partido> partidos = FindAll();
+
+                foreach (var partido in partidos)
+                {
+                    if(partido.Fecha == nuevo.Fecha)
+                    {
+                        if(partido.Hora == nuevo.Hora)
+                        {
+                            throw new Exception("ERROR PARTIDO | Ya existe un partido en este horario");
+                        }
+                    }
+                }
+                
 
                 Contexto.Partidos.Add(nuevo);
                 Contexto.SaveChanges();
             }
             catch (Exception e)
             {
+                if (e.Message.Contains("ERROR PARTIDO") || e.Message.Contains("ERROR HORARIO")) throw e;
                 throw new Exception("No se pudo dar de alta el partido", e);
             }
         }
@@ -50,7 +80,12 @@ namespace LogicaAccesoDatos.BaseDatos
         {
             try
             {
-                return Contexto.Partidos.ToList();
+                return Contexto.Partidos
+                    .Include(p => p.Estado)
+                    .Include(p => p.Hora)
+                    .Include(p => p.SeleccionPartido)
+                    .Include(p => p.Incidencias)
+                    .ToList();
             }
             catch (Exception e)
             {
@@ -63,7 +98,13 @@ namespace LogicaAccesoDatos.BaseDatos
             try
             {
                 if (Id == 0) throw new Exception("El id de partido no puede ser 0");
-                return Contexto.Partidos.Find(Id);
+                return Contexto.Partidos
+                    .Include(p => p.Estado)
+                    .Include(p => p.Hora)
+                   // .Include(p => p.SeleccionPartido)
+                    .Include(p => p.Incidencias)
+                    .Where(p => p.Id == Id)
+                    .SingleOrDefault();
             }
             catch (Exception e)
             {

@@ -106,7 +106,7 @@ namespace LogicaAccesoDatos.BaseDatos
                     .Include(s => s.Pais.Region)
                     .Include(s => s.Grupo)
                     .Include(s => s.Grupo.PartidoGrupo)
-                    .Include(s => s.SeleccionPartido)
+//                    .Include(s => s.SeleccionPartido)
                     .ToList();
             }
             catch (Exception e)

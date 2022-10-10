@@ -26,7 +26,7 @@ namespace LogicaNegocio.Dominio
         {
             if( Fecha < new DateTime(2022,11,20) && Fecha > new DateTime(2022, 12, 02))
             {
-                throw new Exception("La fecha del partido debe estar entre el 20/11/2022 y el 02/12/2022");
+                throw new Exception("ERROR PARTIDO | La fecha del partido debe estar entre el 20/11/2022 y el 02/12/2022");
             }
         }
 
@@ -34,19 +34,19 @@ namespace LogicaNegocio.Dominio
         {
             if(SeleccionPartido.Count() !=  2)
             {
-                throw new Exception("Deben haber exactamente 2 selecciones por partido.");
+                throw new Exception("ERROR PARTIDO | Deben haber exactamente 2 selecciones por partido.");
             }
 
             if(SeleccionPartido.First() == SeleccionPartido.Last())
             {
-                throw new Exception("La seleccion no puede jugar contra si misma.");
+                throw new Exception("ERROR PARTIDO | La seleccion no puede jugar contra si misma.");
             }
 
-            if (SeleccionPartido.First().Seleccion.Grupo != SeleccionPartido.Last().Seleccion.Grupo)
+/*            if (SeleccionPartido.First().Seleccion.Grupo != SeleccionPartido.Last().Seleccion.Grupo)
             {
-                throw new Exception("Ambas selecciones deben pertenecer al mismo grupo.");
+                throw new Exception("ERROR PARTIDO | Ambas selecciones deben pertenecer al mismo grupo.");
             }
+*/
         }
-
     }
 }
