@@ -89,16 +89,27 @@ namespace WebMVC.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+                vm.Regiones = ObtenerRegiones.FindAll();
+                return View(vm);
             }
         }
 
         public ActionResult PaisesPorRegion(int codigo)
         {
-            IEnumerable<Pais> paisesPorRegion = BuscarPaisesPorRegion.PaisesPorRegion(codigo);
-            return View(paisesPorRegion);
+            try
+            {
+                IEnumerable<Pais> paisesPorRegion = BuscarPaisesPorRegion.PaisesPorRegion(codigo);
+                return View(paisesPorRegion);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
         }
 
         public ActionResult PaisesPorCodigoAlfa(string codigo)

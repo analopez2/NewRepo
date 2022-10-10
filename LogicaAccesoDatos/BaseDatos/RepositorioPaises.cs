@@ -26,6 +26,7 @@ namespace LogicaAccesoDatos.BaseDatos
             }
             catch(Exception e)
             {
+                if (e.Message.Contains("ERROR PAIS")) throw e;
                 throw new Exception("No se pudo dar de alta el pais", e);
             }
         }

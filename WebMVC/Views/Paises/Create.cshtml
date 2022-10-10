@@ -5,12 +5,12 @@
 }
 
 <h1>Create</h1>
-
+<span class="text-danger">@ViewBag.Error</span>
 <h4>Pais</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create"enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
@@ -40,10 +40,12 @@
             </div>
             <div class="form-group">
                 <select class="form-control" name="IdRegionSeleccionada" id="regiones">
-                    @foreach (var region in Model.Regiones)
-                    {
-                        <option value="@region.Id">@region.Nombre</option>
-                    }
+                    @if (Model.Regiones != null)
+                    {@foreach (var region in Model.Regiones)
+                        {
+                            <option value="@region.Id">@region.Nombre</option>
+                        }}
+
                 </select>
             </div>
             <div class="form-group">
