@@ -10,9 +10,20 @@ namespace LogicaNegocio.Dominio
         public string Hora { get; set; }
         public void Validar()
         {
+            ValidarHora();
+        }
+
+        public void ValidarHora()
+        {
+            List<string> horas = new List<string> { "07:00", "10:00", "13:00", "16:00" };
+            if (!horas.Contains(Hora))
+            {
+                throw new Exception("El horario del partido debe ser válido");
+            }
 
         }
 
+
     }
-    
+
 }

@@ -15,12 +15,29 @@ namespace LogicaAccesoDatos.BaseDatos
         {
             Contexto = ctx;
         }
-        public void Add(Partido obj)
+        public void Add(Partido nuevo)
         {
             try
             {
-                obj.Validar();
-                Contexto.Partidos.Add(obj);
+
+                nuevo.Validar();
+
+                IEnumerable<SeleccionPartido> partidosSeleccion1 = Contexto.SeleccionPartido
+                    .Where(ps1 => ps1.SeleccionId == nuevo.SeleccionPartido.First().SeleccionId)
+                    .ToList();
+
+                IEnumerable<SeleccionPartido> partidosSeleccion2 = Contexto.SeleccionPartido
+                    .Where(ps1 => ps1.SeleccionId == nuevo.SeleccionPartido.Last().SeleccionId)
+                    .ToList();
+
+                if (partidosSeleccion1.Count() == 3 || partidosSeleccion2.Count() == 3)
+                {
+                    throw new Exception("El máximo de partidos por seleción es 3");
+                }
+
+
+
+                Contexto.Partidos.Add(nuevo);
                 Contexto.SaveChanges();
             }
             catch (Exception e)
