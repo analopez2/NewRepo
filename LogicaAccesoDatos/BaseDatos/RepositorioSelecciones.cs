@@ -43,7 +43,15 @@ namespace LogicaAccesoDatos.BaseDatos
             {
                 Seleccion seleccionABorrar = FindById(Id);
                 if (seleccionABorrar == null) throw new Exception("ERROR SELECCION | No existe la seleccion a borrar");
-                if (seleccionABorrar.GrupoId!= 0) throw new Exception("ERROR SELECCION | No se puede borrar la seleccion porque esta asociada a un grupo");
+
+                var incidencias = Contexto.Incidencias.Where(i => i.Seleccion.Id == Id);
+                bool hayIncidenciasSeleccion = incidencias.Count() > 0;
+
+                var partidos = Contexto.SeleccionPartido.Where(sp => sp.SeleccionId == Id);
+                bool hayPartidosSeleccion = partidos.Count() > 0;
+
+                if(hayPartidosSeleccion || hayIncidenciasSeleccion) throw new Exception("ERROR SELECCION | No se puede borrar la seleccion porque existen registros asociados a ella");
+
 
                 Contexto.Selecciones.Remove(seleccionABorrar);
                 Contexto.SaveChanges();
@@ -74,7 +82,14 @@ namespace LogicaAccesoDatos.BaseDatos
             try
             {
                 if (Id == 0) throw new Exception("ERROR SELECCION | El id de seleccion no puede ser 0");
-                return Contexto.Selecciones.Find(Id);
+                return Contexto.Selecciones
+                    .Include(s => s.Pais)
+                    .Include(s => s.Pais.Region)
+                    .Include(s => s.Grupo)
+                    .Include(s => s.Grupo.PartidoGrupo)
+                    .Include(s => s.SeleccionPartido)
+                    .Where(s => s.Id == Id)
+                    .SingleOrDefault();
             }
             catch (Exception e)
             {
@@ -86,7 +101,13 @@ namespace LogicaAccesoDatos.BaseDatos
         {
             try
             {
-                return Contexto.Selecciones.Include(s => s.Pais).Include(s => s.Grupo).ToList();
+                return Contexto.Selecciones
+                    .Include(s => s.Pais)
+                    .Include(s => s.Pais.Region)
+                    .Include(s => s.Grupo)
+                    .Include(s => s.Grupo.PartidoGrupo)
+//                    .Include(s => s.SeleccionPartido)
+                    .ToList();
             }
             catch (Exception e)
             {

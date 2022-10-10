@@ -31,9 +31,9 @@ namespace WebApi.Controllers
                 if (selecciones.Count() == 0) return NotFound();
                 return Ok(selecciones);
             }
-            catch
+            catch (Exception ex)
             {
-                return StatusCode(500);
+                return StatusCode(500, ex);
             }
         }
 

@@ -16,6 +16,7 @@ namespace LogicaAccesoDatos.BaseDatos
         public DbSet<Region> Regiones { get; set; }
         public DbSet<Horario> Horarios { get; set; }
         public DbSet<Seleccion> Selecciones { get; set; }
+        public DbSet<SeleccionPartido> SeleccionPartido { get; set; }
 
         public LibreriaContext(DbContextOptions<LibreriaContext> opciones) : base(opciones)
         {
