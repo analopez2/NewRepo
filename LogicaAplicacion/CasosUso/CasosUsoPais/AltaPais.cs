@@ -39,7 +39,7 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPais
             List<string> regiones = new List<string> { "África", "América", "Asia", "Europa", "Oceania" };
             if (!regiones.Contains(region.Nombre))
             {
-                throw new Exception("La región debe ser un continente válido");
+                throw new Exception("ERROR PAIS |La región debe ser un continente válido");
             }
 
         }

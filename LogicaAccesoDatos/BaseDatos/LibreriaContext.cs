@@ -27,6 +27,8 @@ namespace LogicaAccesoDatos.BaseDatos
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<Autor>().ToTable("Autor");
+            modelBuilder.Entity<Pais>().HasIndex(p => p.Nombre).IsUnique(true);
+            modelBuilder.Entity<Pais>().HasIndex(p => p.Codigo).IsUnique(true);
             modelBuilder.Entity<Seleccion>().HasIndex(s => s.PaisId).IsUnique(true);
             modelBuilder.Entity<Grupo>().HasIndex(g => g.Nombre).IsUnique(true);
             modelBuilder.Entity<Seleccion>().HasIndex(s => s.Telefono).IsUnique(true);

@@ -20,13 +20,16 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPais
         {
             try
             {
-                //Validar que no se encuentre vinculado con ninguna seleccion o región. 
+
+
                 RepoPaises.Remove(id);
-            } 
-            catch (Exception e)
-            {
-                throw new Exception("No se pudo borar el país", e);
             }
+            catch (Exception e) 
+            {             
+            if (e.Message.Contains("ERROR PAIS")) throw e;
+            throw new Exception("No se pudo borrar el país", e);
+            }
+
         }
     }
 }

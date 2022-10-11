@@ -75,7 +75,12 @@ namespace WebMVC.Controllers
         {
             try
             {
+                if (vm.Bandera == null)
+                {
+                    throw new Exception("ERROR PAIS |Debe seleccionar una bandera");
+                }
                 FileInfo fi = new FileInfo(vm.Bandera.FileName);
+                
                 string ext = fi.Extension;               
                 string nomImagenBandera = vm.Pais.Codigo + ext;               
                 vm.Pais.Bandera = nomImagenBandera;               
@@ -101,21 +106,72 @@ namespace WebMVC.Controllers
         {
             try
             {
+                if (codigo == 0)
+                {
+                    throw new Exception("El codigo de region debe ser mayor a 0");
+                }
                 IEnumerable<Pais> paisesPorRegion = BuscarPaisesPorRegion.PaisesPorRegion(codigo);
+                if (paisesPorRegion.Count() == 0)
+                {
+                    throw new Exception("No existen paises con codigo de region "+codigo);
+                }
                 return View(paisesPorRegion);
             }
-            catch (Exception)
+            catch (Exception e)
+            {
+                ViewBag.Error=e.Message;
+                return View("Error");
+
+            }             
+        }
+       
+
+        public ActionResult PaisesPorCodigoAlfa(string codigo)
+        {
+            try
+            {
+                if (codigo == null || codigo.Length!=3)
+                {
+                    throw new Exception("Debe ingresar un codigo Alfa3 valido");
+                }
+                Pais paisesPorCodigoAlfa = BuscarPaisPorCodigo.BuscarPorCodAlfa(codigo);
+                if (paisesPorCodigoAlfa == null)
+                {
+                    throw new Exception("No existe pais con codigo Alfa3 " + codigo);
+                }
+                return View(paisesPorCodigoAlfa);
+            }
+            catch (Exception e)
             {
 
-                throw;
+                ViewBag.Error = e.Message;
+                return View("Error");
             }
            
         }
 
-        public ActionResult PaisesPorCodigoAlfa(string codigo)
+        public ActionResult PaisesPorId(int codigo)
         {
-           Pais paisesPorCodigoAlfa = BuscarPaisPorCodigo.BuscarPorCodAlfa(codigo);
-            return View(paisesPorCodigoAlfa);
+            try
+            {
+                if (codigo == 0)
+                {
+                    throw new Exception("Debe ingresar un Id mayor a 0");
+                }
+                Pais paisesPorId = ObtenerPais.FindById(codigo);
+                if (paisesPorId == null)
+                {
+                    throw new Exception("No existe el pais con Id " + codigo);
+                }
+                return View(paisesPorId);
+            }
+            catch (Exception e)
+            {
+
+                ViewBag.Error = e.Message;
+                return View("Error");
+            }
+
         }
 
         // GET: PaisesController/Edit/5
@@ -128,15 +184,16 @@ namespace WebMVC.Controllers
         // POST: PaisesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, PaisViewModel vm)
+        public ActionResult Edit(int id, Pais p)
         {
             try
             {
-                ActualizarPais.Update(vm.Pais);
+                ActualizarPais.Update(p);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
+                ViewBag.Error = e.Message;
                 return View();
             }
         }
@@ -159,9 +216,10 @@ namespace WebMVC.Controllers
                 BajaPais.Remove(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+                return View("Error");
             }
         }
     }
