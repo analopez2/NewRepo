@@ -1,22 +1,27 @@
 ﻿@model IEnumerable<LogicaNegocio.Dominio.Pais>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "INICIO";
 }
 
-<h1>Index</h1>
+<h1>INICIO</h1>
 <div>
+    <form action="/Paises/PaisesPorId" method="post">
+        <label for="IdPais">Ingrese Id del Pais</label>
+        <input type="number" id="IdPais" name="codigo" />
+        <button class="btn btn-primary" type="submit">Buscar</button>
+    </form>
     <form action="/Paises/PaisesPorRegion" method="post">
         <label for="regionId">Ingrese Un ID de region</label>
         <input type="number" id="regionId" name="codigo" />
         <button class="btn btn-primary" type="submit">Buscar</button>
-    </form> 
+    </form>
     <form action="/Paises/PaisesPorCodigoAlfa" method="post">
         <label for="codigoAlfa">Ingrese codigo ALFA del Pais</label>
         <input type="text" id="codigoAlfa" name="codigo" />
         <button class="btn btn-primary" type="submit">Buscar</button>
     </form>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">CREAR PAIS</a>
 </div>
 
    
@@ -31,7 +36,7 @@
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
-                 @Html.DisplayNameFor(model => model.Codigo)
+                @Html.DisplayNameFor(model => model.Codigo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Pbi)
@@ -43,8 +48,9 @@
                 @Html.DisplayNameFor(model => model.Bandera)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RegionId)
+                @Html.DisplayNameFor(model => model.Region)
             </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -69,13 +75,14 @@
             <td>
                 <image src="Banderas/@item.Bandera" height="50px"></image>
             </td>
+           
             <td>
-                @Html.DisplayFor(modelItem => item.RegionId)
+                @Html.DisplayFor(modelItem => item.Region.Nombre)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new {id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "PaisesPorCodigoAlfa", new { codigo = item.Codigo }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
 }

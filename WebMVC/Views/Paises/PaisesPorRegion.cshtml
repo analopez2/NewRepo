@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<LogicaNegocio.Dominio.Pais>
 
 @{
-    ViewData["Title"] = "PaisesPorRegion";
+    ViewData["Title"] = "Paises Por Region";
 }
 
-<h1>PaisesPorRegion</h1>
+<h1>Paises Por Region</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <a asp-action="Create">Crear nuevo</a>
+    </p>
 <table class="table">
     <thead>
         <tr>
@@ -61,9 +61,9 @@
                 @Html.DisplayFor(modelItem => item.RegionId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id}) |
-               |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "PaisesPorCodigoAlfa", new { codigo = item.Codigo })|
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
 }

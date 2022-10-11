@@ -16,8 +16,9 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPais
             RepoPaises = repoPaises;
         }
         public IEnumerable<Pais> PaisesPorRegion(int regionId)
-        {
-            return RepoPaises.PaisesPorRegion(regionId);
+        {           
+            return RepoPaises.PaisesPorRegion(regionId);          
+            
         }
     }
 }

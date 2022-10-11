@@ -25,6 +25,7 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPais
             }
             catch (Exception e)
             {
+                if (e.Message.Contains("ERROR PAIS")) throw e;
                 throw new Exception("No se actualizar el pais", e);
             }
         }
