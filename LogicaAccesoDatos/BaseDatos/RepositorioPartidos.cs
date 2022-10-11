@@ -22,11 +22,13 @@ namespace LogicaAccesoDatos.BaseDatos
             {
 
                 nuevo.Validar();
-                //Para validar el grupo hay que traer la info de seleccion por id antes y luego consultar si el grupo es distinto.
-                /*if (nuevo.SeleccionPartido.First().Seleccion.Grupo != nuevo.SeleccionPartido.Last().Seleccion.Grupo)
+                Seleccion seleccion1 = Contexto.Selecciones.Include(s => s.Grupo).Where(s => s.Id == nuevo.SeleccionPartido.First().SeleccionId).SingleOrDefault();
+                Seleccion seleccion2 = Contexto.Selecciones.Include(s => s.Grupo).Where(s => s.Id == nuevo.SeleccionPartido.Last().SeleccionId).SingleOrDefault();
+
+                if (seleccion1.Grupo.Nombre != seleccion2.Grupo.Nombre)
                 {
                     throw new Exception("ERROR PARTIDO | Las selecciones deben pertenecer al mismo grupo");
-                }*/
+                }
 
                 IEnumerable<SeleccionPartido> partidosSeleccion1 = Contexto.SeleccionPartido
                     .Where(ps1 => ps1.SeleccionId == nuevo.SeleccionPartido.First().SeleccionId)
