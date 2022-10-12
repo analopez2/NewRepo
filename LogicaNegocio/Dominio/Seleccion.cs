@@ -1,4 +1,5 @@
 ﻿using LogicaNegocio.InterfacesDominio;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,6 +20,7 @@ namespace LogicaNegocio.Dominio
         public Grupo Grupo { get; set; }
         public int GrupoId { get; set; }
 
+        [JsonIgnore]
         public IEnumerable<SeleccionPartido> SeleccionPartido { get; set; }
 
         public void Validar()
