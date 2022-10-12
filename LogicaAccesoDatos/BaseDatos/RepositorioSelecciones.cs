@@ -84,9 +84,6 @@ namespace LogicaAccesoDatos.BaseDatos
                 if (Id == 0) throw new Exception("ERROR SELECCION | El id de seleccion no puede ser 0");
                 return Contexto.Selecciones
                     .Include(s => s.Pais)
-                    .Include(s => s.Pais.Region)
-                    .Include(s => s.Grupo)
-                    .Include(s => s.Grupo.PartidoGrupo)
                     .Include(s => s.SeleccionPartido)
                     .Where(s => s.Id == Id)
                     .SingleOrDefault();
@@ -103,10 +100,7 @@ namespace LogicaAccesoDatos.BaseDatos
             {
                 return Contexto.Selecciones
                     .Include(s => s.Pais)
-                    .Include(s => s.Pais.Region)
-                    .Include(s => s.Grupo)
-                    .Include(s => s.Grupo.PartidoGrupo)
-//                    .Include(s => s.SeleccionPartido)
+                    .Include(s => s.SeleccionPartido)
                     .ToList();
             }
             catch (Exception e)
