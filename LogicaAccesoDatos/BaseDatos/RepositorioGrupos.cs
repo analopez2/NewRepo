@@ -4,6 +4,7 @@ using System.Text;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Dominio;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace LogicaAccesoDatos.BaseDatos
 {
@@ -38,7 +39,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 return Contexto.Grupos.ToList();
             } catch (Exception e)
             {
-                throw new Exception("No se pudo encontrar paises", e);
+                throw new Exception("No se pudo encontrar grupo", e);
             }
         }
 
@@ -50,7 +51,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 return Contexto.Grupos.Find(Id);
             } catch (Exception e)
             {
-                throw new Exception("No se pudo encontrar el país", e);
+                throw new Exception("No se pudo encontrar el grupo", e);
             }
         }
 
@@ -66,7 +67,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 Contexto.SaveChanges();
             } catch (Exception e)
             {
-                throw new Exception("No se pudo encontrar el país", e);
+                throw new Exception("No se pudo encontrar el grupo", e);
             }
 
         }
@@ -80,14 +81,39 @@ namespace LogicaAccesoDatos.BaseDatos
                 Contexto.SaveChanges();
             } catch (Exception e)
             {
-                throw new Exception("No se pudo encontrar el país", e);
+                throw new Exception("No se pudo encontrar el grupo", e);
             }
         }
 
-        public IEnumerable<Partido> DatosPartidos(Grupo grupo)
+        public IEnumerable<Grupo> DatosPartidos(string nomGrupo)
         {
-            //Implementar cuando se tenga el repo de partidos...
-            throw new NotImplementedException();
-        }
+
+            try
+            {
+                return Contexto.Grupos
+                           .Where(g => g.Nombre == nomGrupo)
+                           .Include(g => g.PartidoGrupo)
+                           .ThenInclude(pg => pg.Partido)
+                           .ThenInclude(p => p.Incidencias)
+                           .ThenInclude(ip => ip.Incidencia)
+                           .Include(g => g.PartidoGrupo)
+                           .ThenInclude(pg => pg.Partido)
+                           .ThenInclude(p => p.Estado)
+                           .Include(g => g.PartidoGrupo)
+                           .ThenInclude(pg => pg.Partido)
+                           .ThenInclude(p => p.Hora)
+                           .Include(g => g.PartidoGrupo)
+                           .ThenInclude(pg => pg.Partido)
+                           .ThenInclude(p => p.SeleccionPartido)
+                           .ThenInclude(sp => sp.Seleccion)
+                           .ThenInclude(s => s.Pais)
+                           .ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se pudo encontrar el grupo", e);
+            }
+
+       }
     }
 }
