@@ -7,6 +7,6 @@ namespace LogicaNegocio.InterfacesRepositorios
 {
      public interface IRepositorioGrupos:IRepositorio<Grupo>
     {
-        IEnumerable<Partido> DatosPartidos(Grupo grupo);
+        IEnumerable<Grupo> DatosPartidos(string nomGrupo);
     }
 }

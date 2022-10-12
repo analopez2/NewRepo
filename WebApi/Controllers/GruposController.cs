@@ -106,5 +106,23 @@ namespace WebApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("nombre/{nomGrupo}")]
+        public IActionResult Get(string nomGrupo)
+        {
+            try
+            {
+                if (nomGrupo == null) return BadRequest("El nombre del grupo es obligatorio");
+
+                IEnumerable<Grupo> grupos = RepoGrupos.DatosPartidos(nomGrupo);
+                if (grupos.Count() == 0) return NotFound("No se encontraron datos para el grupo con el nombre indicado");
+
+                return Ok(grupos);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
     }
 }
