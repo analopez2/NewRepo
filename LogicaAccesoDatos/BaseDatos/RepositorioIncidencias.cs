@@ -46,13 +46,15 @@ namespace LogicaAccesoDatos.BaseDatos
                         incidenciasPartido.Add(nueva);
                         ActualizarPuntosSelecciones(incidenciasPartido);
                         ActualizarEstadoPartido(i.PartidoIncidencia.First().PartidoId);
+                        Contexto.Incidencias.Add(nueva);
+                        Contexto.SaveChanges();
                     }
-                } 
+                } else
+                {
+                    Contexto.Incidencias.Add(nueva);
+                    Contexto.SaveChanges();
 
-
-                Contexto.Incidencias.Add(nueva);
-                Contexto.SaveChanges();
-                
+                }                
 
             }
             catch (Exception e)
