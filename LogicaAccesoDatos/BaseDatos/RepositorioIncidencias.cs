@@ -24,7 +24,7 @@ namespace LogicaAccesoDatos.BaseDatos
 
                 List<Incidencia> incidenciasPartido = new List<Incidencia>();
 
-                IEnumerable <Incidencia> incidencias = Contexto.Incidencias
+                IEnumerable<Incidencia> incidencias = Contexto.Incidencias
                                                         .Include(i => i.PartidoIncidencia)
                                                         .ToList();
 
@@ -38,7 +38,7 @@ namespace LogicaAccesoDatos.BaseDatos
 
                 if (incidenciasPartido.Count() > 0)
                 {
-                    if(incidenciasPartido.Count() >= 2) throw new Exception("ERROR INCIDENCIA | No se pueden cargar más de 2 incidencias por partido");
+                    if (incidenciasPartido.Count() >= 2) throw new Exception("ERROR INCIDENCIA | No se pueden cargar más de 2 incidencias por partido");
 
                     foreach (var i in incidenciasPartido)
                     {
@@ -49,12 +49,12 @@ namespace LogicaAccesoDatos.BaseDatos
                         Contexto.Incidencias.Add(nueva);
                         Contexto.SaveChanges();
                     }
-                } else
+                }
+                else
                 {
                     Contexto.Incidencias.Add(nueva);
                     Contexto.SaveChanges();
-
-                }                
+                }
 
             }
             catch (Exception e)
@@ -89,7 +89,7 @@ namespace LogicaAccesoDatos.BaseDatos
             }
         }
 
-            public void Remove(int Id)
+        public void Remove(int Id)
         {
             try
             {
