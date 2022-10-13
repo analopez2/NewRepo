@@ -22,8 +22,27 @@ namespace LogicaAccesoDatos.BaseDatos
             {
 
                 nuevo.Validar();
+                Estado estadoPartido = Contexto.Estados.Where(e => e.EstadoPartido == nuevo.Estado.EstadoPartido).SingleOrDefault();
+                if (estadoPartido == null)
+                {
+                    throw new Exception("ERROR PARTIDO | El estado indicado no es un estado válido");
+                }
+                nuevo.Estado = estadoPartido;
+               
+                Horario horarioPartido = Contexto.Horarios.Where(h => h.Hora == nuevo.Hora.Hora).SingleOrDefault();
+                if (horarioPartido == null)
+                {
+                    throw new Exception("ERROR PARTIDO | El horario indicado no es un horario válido");
+                }
+                nuevo.Hora = horarioPartido;
+
                 Seleccion seleccion1 = Contexto.Selecciones.Include(s => s.Grupo).Where(s => s.Id == nuevo.SeleccionPartido.First().SeleccionId).SingleOrDefault();
                 Seleccion seleccion2 = Contexto.Selecciones.Include(s => s.Grupo).Where(s => s.Id == nuevo.SeleccionPartido.Last().SeleccionId).SingleOrDefault();
+
+                if( seleccion1 == null || seleccion2 == null)
+                {
+                    throw new Exception("ERROR PARTIDO | Ambas selecciones deben existir para poder cargar un partido entre ellas");
+                }
 
                 if (seleccion1.Grupo.Nombre != seleccion2.Grupo.Nombre)
                 {
@@ -60,7 +79,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 {
                     if(partido.Fecha == nuevo.Fecha)
                     {
-                        if(partido.Hora == nuevo.Hora)
+                        if(partido.Hora.Hora == nuevo.Hora.Hora)
                         {
                             throw new Exception("ERROR PARTIDO | Ya existe un partido en este horario");
                         }
@@ -103,7 +122,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 return Contexto.Partidos
                     .Include(p => p.Estado)
                     .Include(p => p.Hora)
-                   // .Include(p => p.SeleccionPartido)
+                    .Include(p => p.SeleccionPartido)
                     .Include(p => p.Incidencias)
                     .Where(p => p.Id == Id)
                     .SingleOrDefault();
