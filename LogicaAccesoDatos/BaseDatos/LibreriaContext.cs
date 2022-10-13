@@ -18,6 +18,7 @@ namespace LogicaAccesoDatos.BaseDatos
         public DbSet<Seleccion> Selecciones { get; set; }
         public DbSet<SeleccionPartido> SeleccionPartido { get; set; }
         public DbSet<PartidoGrupo> PartidoGrupo { get; set; }
+        public DbSet<IncidenciaPartido> IncidenciaPartido { get; set; }
 
         public LibreriaContext(DbContextOptions<LibreriaContext> opciones) : base(opciones)
         {

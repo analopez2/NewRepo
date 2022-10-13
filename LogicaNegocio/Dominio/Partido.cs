@@ -14,12 +14,15 @@ namespace LogicaNegocio.Dominio
         public Horario Hora { get; set; }       
         public Estado Estado { get; set; }
         public IEnumerable<IncidenciaPartido> Incidencias { get; set; }
+        public IEnumerable<PartidoGrupo> PartidoGrupo { get; set; }
+
 
         public void Validar()
         {
             Hora.Validar();
             ValidarFecha();
             ValidarSelecciones();
+            ValidarPartidoGrupo();
         }
 
         public void ValidarFecha()
@@ -41,12 +44,14 @@ namespace LogicaNegocio.Dominio
             {
                 throw new Exception("ERROR PARTIDO | La seleccion no puede jugar contra si misma.");
             }
+        }
 
-/*            if (SeleccionPartido.First().Seleccion.Grupo != SeleccionPartido.Last().Seleccion.Grupo)
+        public void ValidarPartidoGrupo()
+        {
+            if (PartidoGrupo.Count() != 1)
             {
-                throw new Exception("ERROR PARTIDO | Ambas selecciones deben pertenecer al mismo grupo.");
+                throw new Exception("ERROR PARTIDO | Es necesario que el partido tenga 1 único grupo vinculado.");
             }
-*/
         }
     }
 }

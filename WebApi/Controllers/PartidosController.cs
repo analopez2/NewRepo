@@ -51,6 +51,9 @@ namespace WebApi.Controllers
             try
             {
                 if (partido == null) return BadRequest("Body vacío");
+                Estado estadoPartido = new Estado();
+                estadoPartido.EstadoPartido = "PENDIENTE";
+                partido.Estado = estadoPartido;
                 RepoPartidos.Add(partido);
                 return Created("api/partidos/" + partido.Id, partido);
             }
