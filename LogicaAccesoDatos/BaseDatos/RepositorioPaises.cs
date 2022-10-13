@@ -110,7 +110,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 nuevo.Validar();
                 Pais aModificar = FindById(nuevo.Id);
 
-                if (aModificar == null) throw new Exception(" ERROR PAIS | El autor no existe");
+                if (aModificar == null) throw new Exception(" ERROR PAIS | El Pais no existe");
 
                 if (aModificar.Nombre != nuevo.Nombre)
                 {

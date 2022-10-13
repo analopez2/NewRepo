@@ -79,8 +79,7 @@ namespace WebMVC.Controllers
                 {
                     throw new Exception("ERROR PAIS |Debe seleccionar una bandera");
                 }
-                FileInfo fi = new FileInfo(vm.Bandera.FileName);
-                
+                FileInfo fi = new FileInfo(vm.Bandera.FileName);                
                 string ext = fi.Extension;               
                 string nomImagenBandera = vm.Pais.Codigo + ext;               
                 vm.Pais.Bandera = nomImagenBandera;               
@@ -89,8 +88,9 @@ namespace WebMVC.Controllers
                 string rutaArchivo = Path.Combine(rutaCarpeta, nomImagenBandera);
                 vm.Pais.RegionId = vm.IdRegionSeleccionada;
                 AltaPais.Add(vm.Pais);
-                FileStream fs = new FileStream(rutaArchivo, FileMode.Create);               
+                FileStream fs = new FileStream(rutaArchivo, FileMode.Create);
                 vm.Bandera.CopyTo(fs);
+                fs.Close();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -177,18 +177,42 @@ namespace WebMVC.Controllers
         // GET: PaisesController/Edit/5
         public ActionResult Edit(int id)
         {
-            Pais aEditar = ObtenerPais.FindById(id);
-            return View(aEditar);
+            Pais p = ObtenerPais.FindById(id);
+            PaisViewModel pvm = new PaisViewModel();
+            List<Region> Regiones = new List<Region>();
+            Regiones.Add(p.Region);
+            pvm.Regiones = Regiones;
+            pvm.Pais = p;
+           
+
+            return View(pvm);
         }
 
         // POST: PaisesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Pais p)
+        public ActionResult Edit(int id, PaisViewModel pvm)
         {
             try
             {
-                ActualizarPais.Update(p);
+                if (pvm.Bandera != null)
+                {
+                    FileInfo fi = new FileInfo(pvm.Bandera.FileName);
+                    string ext = fi.Extension;
+                    string nomImagenBandera = pvm.Pais.Codigo + ext;
+                    pvm.Pais.Bandera = nomImagenBandera;
+                    string rutaRaiz = WHE.WebRootPath;
+                    string rutaCarpeta = Path.Combine(rutaRaiz, "Banderas");
+                    string rutaArchivo = Path.Combine(rutaCarpeta, nomImagenBandera);
+                    System.IO.File.Delete(rutaArchivo);
+                    FileStream fs = new FileStream(rutaArchivo, FileMode.Create);
+                    pvm.Bandera.CopyTo(fs);
+                    fs.Close();
+                }
+                pvm.Pais.Id = id;
+                
+
+                ActualizarPais.Update(pvm.Pais);
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception e)
@@ -201,19 +225,26 @@ namespace WebMVC.Controllers
         // GET: PaisesController/Delete/5
         public ActionResult Delete(int id)
         {
-            Pais aBorrar = ObtenerPais.FindById(id);
+            Pais aBorrar = ObtenerPais.FindById(id);            
             return View(aBorrar);
+           
+
         }
 
         // POST: PaisesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Pais pais)
+        public ActionResult Delete(int id,Pais pais)
         {
             try
             {
-
-                BajaPais.Remove(id);
+                Pais aBorrar = ObtenerPais.FindById(id);
+                string nomImagenBandera = aBorrar.Codigo + ".png";
+                BajaPais.Remove(id);                           
+                string rutaRaiz = WHE.WebRootPath;
+                string rutaCarpeta = Path.Combine(rutaRaiz, "Banderas");
+                string rutaArchivo = Path.Combine(rutaCarpeta, nomImagenBandera);
+                System.IO.File.Delete(rutaArchivo);               
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception e)
