@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace LogicaNegocio.Dominio
 {
     public class Grupo : IValidable
     {
         public int Id { get; set; }
+        [Display(Name = "Grupo")]
         public string Nombre { get; set; }
         public IEnumerable<PartidoGrupo> PartidoGrupo { get; set; }
        
