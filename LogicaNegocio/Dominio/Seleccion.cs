@@ -1,9 +1,11 @@
-﻿using LogicaNegocio.InterfacesDominio;
+﻿
+using LogicaNegocio.InterfacesDominio;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace LogicaNegocio.Dominio
 {
@@ -15,6 +17,7 @@ namespace LogicaNegocio.Dominio
         public string  Nombre { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
+        [Display(Name = "Apostadores")]
         public int CantPotencialApostadores { get; set; }
         public int Puntos { get; set; }
         public Grupo Grupo { get; set; }

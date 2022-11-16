@@ -85,6 +85,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 return Contexto.Selecciones
                     .Include(s => s.Pais)
                     .Include(s => s.SeleccionPartido)
+                    .Include(s=>s.Grupo)
                     .Where(s => s.Id == Id)
                     .SingleOrDefault();
             }
@@ -101,6 +102,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 return Contexto.Selecciones
                     .Include(s => s.Pais)
                     .Include(s => s.SeleccionPartido)
+                    .Include(s => s.Grupo)
                     .ToList();
             }
             catch (Exception e)

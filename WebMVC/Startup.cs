@@ -16,6 +16,8 @@ using LogicaAplicacion.CasosUso.CasosUsoRegion;
 using LogicaAccesoDatos.BaseDatos;
 using Microsoft.EntityFrameworkCore;
 using LogicaNegocio.Dominio;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoGrupos;
+using LogicaAplicacion.CasosUso;
 
 namespace WebMVC
 {
@@ -43,6 +45,7 @@ namespace WebMVC
             services.AddScoped<IBuscarPaisPorCodigoAlfa, BuscarPaisPorCodAlfa>();
             services.AddScoped<IObtenerPais, ObtenerPais>();
             services.AddScoped<IObtenerPaises, ObtenerPaises >();
+            services.AddScoped<IObtenerGrupos, ObtenerGrupos>();
             services.AddScoped<IObtenerRegiones, ObtenerRegiones>();
 
 
@@ -51,6 +54,8 @@ namespace WebMVC
             services.AddScoped<IRepositorioPaises, RepositorioPaises>();
             services.AddScoped<IRepositorioRegiones, RepositorioRegiones>();
             services.AddScoped<IRepositorioSelecciones, RepositorioSelecciones>();
+            services.AddScoped<IRepositorioGrupos, RepositorioGrupos>();
+           
 
         }
 
@@ -75,7 +80,7 @@ namespace WebMVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Paises}/{action=Index}/{id?}");
+                    pattern: "{controller=SeleccionesApi}/{action=Index}/{id?}");
             });
         }
     }

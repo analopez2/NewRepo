@@ -11,7 +11,7 @@ namespace LogicaNegocio.Dominio
     {
         public int Id { get; set; }
         [MinLength(3,ErrorMessage ="El nombre debe contener al menos 3 caracteres"), MaxLength(100), Required(ErrorMessage = "El nombre es olbigatorio ingresarlo")]
-        [RegularExpression("^[a-zA-Z]+((\\s[a-zA-Z]+)?)*$",ErrorMessage = "El Nombre solo puede contener letras y espacios")]
+        [RegularExpression("^[a-zA-Z]+((\\s[a-zA-Z]+)?)*$",ErrorMessage = "El Nombre solo puede contener letras y espacios"), Display(Name = "Pais")]
         public string Nombre { get; set; }
         [MinLength(3, ErrorMessage = "El codigo debe contener al menos 3 caracteres"), MaxLength(3), Required(ErrorMessage = "Es obligatorio ingresar un código alfa3")]
         [RegularExpression("^[a-zA-Z]+$",ErrorMessage ="El Codigo solo puede contener letras")]
