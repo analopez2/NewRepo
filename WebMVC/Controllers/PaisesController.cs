@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using WebMVC.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Excepciones;
 
 namespace WebMVC.Controllers
 {
@@ -77,7 +78,7 @@ namespace WebMVC.Controllers
             {
                 if (vm.Bandera == null)
                 {
-                    throw new Exception("ERROR PAIS |Debe seleccionar una bandera");
+                    throw new PaisException("Debe seleccionar una bandera");
                 }
                 FileInfo fi = new FileInfo(vm.Bandera.FileName);                
                 string ext = fi.Extension;               

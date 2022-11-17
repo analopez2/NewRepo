@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
-
+using Excepciones;
 
 namespace LogicaNegocio.Dominio
 {
@@ -32,16 +32,16 @@ namespace LogicaNegocio.Dominio
         {
             if (string.IsNullOrEmpty(Nombre))
             {
-                throw new Exception("ERROR PAIS |El nombre del país es obligatorio");
+                throw new PaisException("El nombre del país es obligatorio");
             }
             if (Nombre.Length < 3)
             {
-                throw new Exception("ERROR PAIS |El nombre del país debe tener al menos 3 caracteres");
+                throw new PaisException("El nombre del país debe tener al menos 3 caracteres");
             }
 
             if (!Regex.IsMatch(Nombre, "^[a-zA-Z]+((\\s[a-zA-Z]+)?)*$"))
             {
-                throw new Exception("ERROR PAIS |El nombre del país solo puede contener letras y espacios embebidos");
+                throw new PaisException("El nombre del país solo puede contener letras y espacios embebidos");
             }
         }
 
@@ -49,12 +49,12 @@ namespace LogicaNegocio.Dominio
         {
             if (string.IsNullOrEmpty(Codigo))
             {
-                throw new Exception("ERROR PAIS |El código del país es obligatorio");
+                throw new PaisException("El código del país es obligatorio");
             }
 
             if (Codigo.Length < 3 || Codigo.Length > 3)
             {
-                throw new Exception("ERROR PAIS |El código del país solo puede tener 3 caracteres");
+                throw new PaisException("El código del país solo puede tener 3 caracteres");
             }
 
             string c = Codigo.ToCharArray()[0].ToString();
@@ -62,7 +62,7 @@ namespace LogicaNegocio.Dominio
 
             if (c.ToLower() != p.ToLower())
             {
-                throw new Exception("ERROR PAIS | El código del país debe comenzar con la misma letra que el nombre del país");
+                throw new PaisException("El código del país debe comenzar con la misma letra que el nombre del país");
             }
         }
 
@@ -72,12 +72,12 @@ namespace LogicaNegocio.Dominio
         {
             if (Pbi < 0 )
             {
-                throw new Exception("ERROR PAIS |El Pbi debe ser mayor a 0");
+                throw new PaisException("El Pbi debe ser mayor a 0");
             }
 
             if (Poblacion < 0)
             {
-                throw new Exception("ERROR PAIS |La Poblacion debe ser mayor a 0");
+                throw new PaisException("La Poblacion debe ser mayor a 0");
             }
         }
     }

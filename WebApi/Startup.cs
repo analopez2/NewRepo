@@ -36,12 +36,11 @@ namespace WebApi
             services.AddScoped<IRepositorioSelecciones, RepositorioSelecciones>();
             services.AddScoped<IRepositorioGrupos, RepositorioGrupos>();
             services.AddScoped<IRepositorioPartidos, RepositorioPartidos>();
-            services.AddScoped<IRepositorioIncidencias, RepositorioIncidencias>();
             services.AddScoped<IRepositorioPaises, RepositorioPaises>();
             services.AddScoped<IRepositorioGrupos, RepositorioGrupos>();
 
 
-            string strCon = Configuration.GetConnectionString("ConeccionAlvaro");
+            string strCon = Configuration.GetConnectionString("ConeccionAna");
             services.AddDbContext<LibreriaContext>(options => options.UseSqlServer(strCon));
 
         }

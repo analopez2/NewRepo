@@ -4,6 +4,7 @@ using LogicaNegocio.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Excepciones;
 
 namespace LogicaAplicacion.CasosUso.CasosUsoPais
 {
@@ -20,13 +21,14 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPais
         {
             try
             {
-
-
                 RepoPaises.Remove(id);
+            }
+            catch (PaisException)
+            {
+                throw;
             }
             catch (Exception e) 
             {             
-            if (e.Message.Contains("ERROR PAIS")) throw e;
             throw new Exception("No se pudo borrar el país", e);
             }
 

@@ -9,16 +9,13 @@ namespace LogicaAccesoDatos.BaseDatos
     public class LibreriaContext : DbContext
     {
         public DbSet<Pais> Paises { get; set; }
-        public DbSet<Estado> Estados { get; set; }
         public DbSet<Grupo> Grupos { get; set; }
         public DbSet<Partido> Partidos { get; set; }
-        public DbSet<Incidencia> Incidencias { get; set; }
         public DbSet<Region> Regiones { get; set; }
         public DbSet<Horario> Horarios { get; set; }
         public DbSet<Seleccion> Selecciones { get; set; }
         public DbSet<SeleccionPartido> SeleccionPartido { get; set; }
         public DbSet<PartidoGrupo> PartidoGrupo { get; set; }
-        public DbSet<IncidenciaPartido> IncidenciaPartido { get; set; }
 
         public LibreriaContext(DbContextOptions<LibreriaContext> opciones) : base(opciones)
         {
@@ -38,7 +35,6 @@ namespace LogicaAccesoDatos.BaseDatos
             //modelBuilder.Entity<Autor>().Property(autor => autor.Documento).IsRequired(true);
             //modelBuilder.Entity<Autor>().Property(autor => autor.Nombre).IsRequired(true).HasMaxLength(50);
             modelBuilder.Entity<SeleccionPartido>().HasKey(sp => new { sp.PartidoId, sp.SeleccionId });
-            modelBuilder.Entity<IncidenciaPartido>().HasKey(IPa => new { IPa.PartidoId, IPa.IncidenciaId });
             modelBuilder.Entity<PartidoGrupo>().HasKey(PaG => new { PaG.PartidoId, PaG.GrupoId });
             //base.OnModelCreating(modelBuilder);
         }

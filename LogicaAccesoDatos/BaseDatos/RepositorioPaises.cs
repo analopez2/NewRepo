@@ -5,6 +5,7 @@ using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Dominio;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Excepciones;
 
 namespace LogicaAccesoDatos.BaseDatos
 {
@@ -25,9 +26,12 @@ namespace LogicaAccesoDatos.BaseDatos
                 Contexto.Paises.Add(nuevo);
                 Contexto.SaveChanges();
             }
+            catch (PaisException)
+            {
+                throw;
+            }
             catch(Exception e)
             {
-                if (e.Message.Contains("ERROR PAIS")) throw e;
                 throw new Exception("No se pudo dar de alta el pais", e);
             }
         }
@@ -86,19 +90,23 @@ namespace LogicaAccesoDatos.BaseDatos
             try
             {
                 Pais paisABorrar = FindById(Id);
-                if (paisABorrar == null) throw new Exception("ERROR PAIS | No existe el país a borrar");
+                if (paisABorrar == null) throw new PaisException("No existe el país a borrar");
 
                 var selecciones = Contexto.Selecciones.Where(s => s.Pais.Id == Id);
                 bool haySeleccionesDelPais = selecciones.Count() > 0;
 
-                if (haySeleccionesDelPais) throw new Exception("ERROR PAIS | No se puede borrar el pais porque existen selecciones pertenecientes a dicho país");
+                if (haySeleccionesDelPais) throw new PaisException("No se puede borrar el pais porque existen selecciones pertenecientes a dicho país");
                 
                 Contexto.Paises.Remove(paisABorrar);
                 Contexto.SaveChanges();
 
-            } catch (Exception e)
+            }
+            catch (PaisException)
             {
-                if (e.Message.Contains("ERROR PAIS")) throw e;
+                throw;
+            }
+            catch (Exception e)
+            {
                 throw new Exception("No se pudo borrar el país", e);
             }
         }
@@ -110,7 +118,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 nuevo.Validar();
                 Pais aModificar = FindById(nuevo.Id);
 
-                if (aModificar == null) throw new Exception(" ERROR PAIS | El Pais no existe");
+                if (aModificar == null) throw new PaisException("El Pais no existe");
 
                 if (aModificar.Nombre != nuevo.Nombre)
                 {
@@ -129,9 +137,12 @@ namespace LogicaAccesoDatos.BaseDatos
                 Contexto.Paises.Update(nuevo);
                 Contexto.SaveChanges();
             }
+            catch (PaisException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
-                if (e.Message.Contains("ERROR PAIS")) throw e;
                 throw new Exception("No se pudo actualizar el país", e);
             } 
            
@@ -139,12 +150,12 @@ namespace LogicaAccesoDatos.BaseDatos
         private void ValidarNombreRepetido(string nombre)
         {
             Pais p = Contexto.Paises.Where(p => p.Nombre == nombre).SingleOrDefault();
-            if (p != null) throw new Exception("ERROR PAIS | Ya existe otro pais con ese nombre");
+            if (p != null) throw new PaisException("Ya existe otro pais con ese nombre");
         }
         private void ValidarCodigoRepetido(string codigo)
         {
             Pais p = Contexto.Paises.Where(p => p.Codigo == codigo).SingleOrDefault();
-            if (p != null) throw new Exception("ERROR PAIS | Ya existe otro pais con ese codigo Alfa 3");
+            if (p != null) throw new PaisException("Ya existe otro pais con ese codigo Alfa 3");
         }
     }
 }

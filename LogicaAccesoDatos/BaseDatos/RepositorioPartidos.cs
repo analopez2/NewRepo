@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Excepciones;
 
 namespace LogicaAccesoDatos.BaseDatos
 {
@@ -22,44 +23,38 @@ namespace LogicaAccesoDatos.BaseDatos
             {
 
                 nuevo.Validar();
-                Estado estadoPartido = Contexto.Estados.Where(e => e.EstadoPartido == nuevo.Estado.EstadoPartido).SingleOrDefault();
-                if (estadoPartido == null)
-                {
-                    throw new Exception("ERROR PARTIDO | El estado indicado no es un estado válido");
-                }
-                nuevo.Estado = estadoPartido;
                
                 Horario horarioPartido = Contexto.Horarios.Where(h => h.Hora == nuevo.Hora.Hora).SingleOrDefault();
                 if (horarioPartido == null)
                 {
-                    throw new Exception("ERROR PARTIDO | El horario indicado no es un horario válido");
+                    throw new PartidoException("El horario indicado no es un horario válido");
                 }
                 nuevo.Hora = horarioPartido;
 
-                Seleccion seleccion1 = Contexto.Selecciones.Include(s => s.Grupo).Where(s => s.Id == nuevo.SeleccionPartido.First().SeleccionId).SingleOrDefault();
-                Seleccion seleccion2 = Contexto.Selecciones.Include(s => s.Grupo).Where(s => s.Id == nuevo.SeleccionPartido.Last().SeleccionId).SingleOrDefault();
+                Seleccion seleccion1 = Contexto.Selecciones.Include(s => s.Grupo).Where(s => s.Id == nuevo.Seleccion1.Id).SingleOrDefault();
+                Seleccion seleccion2 = Contexto.Selecciones.Include(s => s.Grupo).Where(s => s.Id == nuevo.Seleccion2.Id).SingleOrDefault();
 
                 if( seleccion1 == null || seleccion2 == null)
                 {
-                    throw new Exception("ERROR PARTIDO | Ambas selecciones deben existir para poder cargar un partido entre ellas");
+                    throw new PartidoException("Ambas selecciones deben existir para poder cargar un partido entre ellas");
                 }
 
                 if (seleccion1.Grupo.Nombre != seleccion2.Grupo.Nombre)
                 {
-                    throw new Exception("ERROR PARTIDO | Las selecciones deben pertenecer al mismo grupo");
+                    throw new PartidoException("Las selecciones deben pertenecer al mismo grupo");
                 }
 
                 IEnumerable<SeleccionPartido> partidosSeleccion1 = Contexto.SeleccionPartido
-                    .Where(ps1 => ps1.SeleccionId == nuevo.SeleccionPartido.First().SeleccionId)
+                    .Where(ps1 => ps1.SeleccionId == nuevo.Seleccion1.Id)
                     .ToList();
 
                 IEnumerable<SeleccionPartido> partidosSeleccion2 = Contexto.SeleccionPartido
-                    .Where(ps1 => ps1.SeleccionId == nuevo.SeleccionPartido.Last().SeleccionId)
+                    .Where(ps1 => ps1.SeleccionId == nuevo.Seleccion2.Id)
                     .ToList();
 
                 if (partidosSeleccion1.Count() >= 3 || partidosSeleccion2.Count() >= 3)
                 {
-                    throw new Exception("ERROR PARTIDO | El máximo de partidos por seleción es 3");
+                    throw new PartidoException("El máximo de partidos por seleción es 3");
                 }
 
                 foreach (var p1 in partidosSeleccion1)
@@ -68,7 +63,7 @@ namespace LogicaAccesoDatos.BaseDatos
                     {
                         if(p1.PartidoId == p2.PartidoId)
                         {
-                            throw new Exception("ERROR PARTIDO | Estas selecciones ya jugaron entre sí");
+                            throw new PartidoException("Estas selecciones ya jugaron entre sí");
                         }
                     }
                 }
@@ -81,7 +76,7 @@ namespace LogicaAccesoDatos.BaseDatos
                     {
                         if(partido.Hora.Hora == nuevo.Hora.Hora)
                         {
-                            throw new Exception("ERROR PARTIDO | Ya existe un partido en este horario");
+                            throw new PartidoException("Ya existe un partido en este horario");
                         }
                     }
                 }
@@ -90,9 +85,16 @@ namespace LogicaAccesoDatos.BaseDatos
                 Contexto.Partidos.Add(nuevo);
                 Contexto.SaveChanges();
             }
+            catch (PartidoException)
+            {
+                throw;
+            }
+            catch (HoraException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
-                if (e.Message.Contains("ERROR PARTIDO") || e.Message.Contains("ERROR HORARIO")) throw e;
                 throw new Exception("No se pudo dar de alta el partido", e);
             }
         }
@@ -102,10 +104,9 @@ namespace LogicaAccesoDatos.BaseDatos
             try
             {
                 return Contexto.Partidos
-                    .Include(p => p.Estado)
                     .Include(p => p.Hora)
-                    .Include(p => p.SeleccionPartido)
-                    .Include(p => p.Incidencias)
+                    .Include(p => p.Seleccion1)
+                    .Include(p => p.Seleccion2)
                     .ToList();
             }
             catch (Exception e)
@@ -120,10 +121,9 @@ namespace LogicaAccesoDatos.BaseDatos
             {
                 if (Id == 0) throw new Exception("El id de partido no puede ser 0");
                 return Contexto.Partidos
-                    .Include(p => p.Estado)
                     .Include(p => p.Hora)
-                    .Include(p => p.SeleccionPartido)
-                    .Include(p => p.Incidencias)
+                    .Include(p => p.Seleccion1)
+                    .Include(p => p.Seleccion2)
                     .Where(p => p.Id == Id)
                     .SingleOrDefault();
             }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Dominio;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Excepciones;
 
 namespace LogicaAccesoDatos.BaseDatos
 {
@@ -25,10 +25,13 @@ namespace LogicaAccesoDatos.BaseDatos
                 Contexto.Grupos.Add(nuevo);
                 Contexto.SaveChanges();
             }
+            catch (GrupoException)
+            {
+                throw;
+            }
             catch(Exception e)
             {
-                if (e.Message.Contains("ERROR GRUPO")) throw e;
-                throw new Exception("No se puedo dar de alta el grupo");
+                throw new Exception("No se puedo dar de alta el grupo", e);
             }
         }
 
@@ -47,9 +50,15 @@ namespace LogicaAccesoDatos.BaseDatos
         {
             try
             {
-                if (Id == 0) throw new Exception("ERROR GRUPO | El id de grupo no puede ser 0");
+                if (Id == 0) throw new GrupoException("El id de grupo no puede ser 0");
                 return Contexto.Grupos.Find(Id);
-            } catch (Exception e)
+            }
+            catch (GrupoException)
+            {
+                throw;
+            }
+
+            catch (Exception e)
             {
                 throw new Exception("No se pudo encontrar el grupo", e);
             }
@@ -61,11 +70,17 @@ namespace LogicaAccesoDatos.BaseDatos
             {            
                 //Validar que no se encuentre vinculado con ninguna seleccion o partido. 
                 Grupo grupoABorrar = FindById(Id);
-                if (grupoABorrar == null) throw new Exception("ERROR GRUPO | No existe el grupo a borrar");
+                if (grupoABorrar == null) throw new GrupoException("No existe el grupo a borrar");
 
                 Contexto.Grupos.Remove(grupoABorrar);
                 Contexto.SaveChanges();
-            } catch (Exception e)
+            }
+            catch (GrupoException)
+            {
+                throw;
+            }
+
+            catch (Exception e)
             {
                 throw new Exception("No se pudo encontrar el grupo", e);
             }
@@ -94,18 +109,18 @@ namespace LogicaAccesoDatos.BaseDatos
                            .Where(g => g.Nombre == nomGrupo)
                            .Include(g => g.PartidoGrupo)
                            .ThenInclude(pg => pg.Partido)
-                           .ThenInclude(p => p.Incidencias)
-                           .ThenInclude(ip => ip.Incidencia)
                            .Include(g => g.PartidoGrupo)
                            .ThenInclude(pg => pg.Partido)
-                           .ThenInclude(p => p.Estado)
                            .Include(g => g.PartidoGrupo)
                            .ThenInclude(pg => pg.Partido)
                            .ThenInclude(p => p.Hora)
                            .Include(g => g.PartidoGrupo)
                            .ThenInclude(pg => pg.Partido)
-                           .ThenInclude(p => p.SeleccionPartido)
-                           .ThenInclude(sp => sp.Seleccion)
+                           .ThenInclude(p => p.Seleccion1)
+                           .ThenInclude(s => s.Pais)
+                           .Include(g => g.PartidoGrupo)
+                           .ThenInclude(pg => pg.Partido)
+                           .ThenInclude(p => p.Seleccion2)
                            .ThenInclude(s => s.Pais)
                            .ToList();
             }
