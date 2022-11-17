@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Excepciones;
 
 namespace LogicaNegocio.Dominio
 {
@@ -20,7 +21,7 @@ namespace LogicaNegocio.Dominio
             List<string> regiones = new List<string> { "AFRICA", "AMERICA", "ASIA", "EUROPA", "OCEANIA" };
             if (!regiones.Contains(Nombre.ToUpper()))
             {
-                throw new Exception("La región debe ser un continente válido");
+                throw new RegionException("La región debe ser un continente válido");
             }
         }
     }

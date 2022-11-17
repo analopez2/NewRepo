@@ -3,23 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LogicaAccesoDatos.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class nuevaBaseDeDatos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Estados",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EstadoPartido = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Estados", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Grupos",
                 columns: table => new
@@ -60,33 +47,6 @@ namespace LogicaAccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Partidos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha = table.Column<DateTime>(nullable: false),
-                    HoraId = table.Column<int>(nullable: true),
-                    EstadoId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Partidos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Partidos_Estados_EstadoId",
-                        column: x => x.EstadoId,
-                        principalTable: "Estados",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Partidos_Horarios_HoraId",
-                        column: x => x.HoraId,
-                        principalTable: "Horarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Paises",
                 columns: table => new
                 {
@@ -97,8 +57,7 @@ namespace LogicaAccesoDatos.Migrations
                     Pbi = table.Column<int>(nullable: false),
                     Poblacion = table.Column<int>(nullable: false),
                     Bandera = table.Column<string>(nullable: true),
-                    RegionId = table.Column<int>(nullable: true),
-                    RegionInd = table.Column<int>(nullable: false)
+                    RegionId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,30 +66,6 @@ namespace LogicaAccesoDatos.Migrations
                         name: "FK_Paises_Regiones_RegionId",
                         column: x => x.RegionId,
                         principalTable: "Regiones",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PartidoGrupo",
-                columns: table => new
-                {
-                    PartidoId = table.Column<int>(nullable: false),
-                    GrupoId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PartidoGrupo", x => new { x.PartidoId, x.GrupoId });
-                    table.ForeignKey(
-                        name: "FK_PartidoGrupo_Grupos_GrupoId",
-                        column: x => x.GrupoId,
-                        principalTable: "Grupos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PartidoGrupo_Partidos_PartidoId",
-                        column: x => x.PartidoId,
-                        principalTable: "Partidos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -167,25 +102,68 @@ namespace LogicaAccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Incidencias",
+                name: "Partidos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RojasDirectas = table.Column<int>(nullable: false),
-                    Amarillas = table.Column<int>(nullable: false),
-                    RojasAcumAmarillas = table.Column<int>(nullable: false),
-                    SeleccionId = table.Column<int>(nullable: true)
+                    Seleccion1Id = table.Column<int>(nullable: true),
+                    Seleccion2Id = table.Column<int>(nullable: true),
+                    Fecha = table.Column<DateTime>(nullable: false),
+                    HoraId = table.Column<int>(nullable: true),
+                    Estado = table.Column<string>(nullable: true),
+                    CantidadRojasS1 = table.Column<int>(nullable: false),
+                    CantidadRojasS2 = table.Column<int>(nullable: false),
+                    CantidadAmarillasS1 = table.Column<int>(nullable: false),
+                    CantidadAmarillasS2 = table.Column<int>(nullable: false),
+                    CantidadRojasAcAmarillasS1 = table.Column<int>(nullable: false),
+                    CantidadRojasAcAmarillasS2 = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Incidencias", x => x.Id);
+                    table.PrimaryKey("PK_Partidos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Incidencias_Selecciones_SeleccionId",
-                        column: x => x.SeleccionId,
+                        name: "FK_Partidos_Horarios_HoraId",
+                        column: x => x.HoraId,
+                        principalTable: "Horarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Partidos_Selecciones_Seleccion1Id",
+                        column: x => x.Seleccion1Id,
                         principalTable: "Selecciones",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Partidos_Selecciones_Seleccion2Id",
+                        column: x => x.Seleccion2Id,
+                        principalTable: "Selecciones",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PartidoGrupo",
+                columns: table => new
+                {
+                    PartidoId = table.Column<int>(nullable: false),
+                    GrupoId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PartidoGrupo", x => new { x.PartidoId, x.GrupoId });
+                    table.ForeignKey(
+                        name: "FK_PartidoGrupo_Grupos_GrupoId",
+                        column: x => x.GrupoId,
+                        principalTable: "Grupos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PartidoGrupo_Partidos_PartidoId",
+                        column: x => x.PartidoId,
+                        principalTable: "Partidos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -212,39 +190,24 @@ namespace LogicaAccesoDatos.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "IncidenciaPartido",
-                columns: table => new
-                {
-                    IncidenciaId = table.Column<int>(nullable: false),
-                    PartidoId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IncidenciaPartido", x => new { x.PartidoId, x.IncidenciaId });
-                    table.ForeignKey(
-                        name: "FK_IncidenciaPartido_Incidencias_IncidenciaId",
-                        column: x => x.IncidenciaId,
-                        principalTable: "Incidencias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_IncidenciaPartido_Partidos_PartidoId",
-                        column: x => x.PartidoId,
-                        principalTable: "Partidos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Grupos_Nombre",
+                table: "Grupos",
+                column: "Nombre",
+                unique: true,
+                filter: "[Nombre] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IncidenciaPartido_IncidenciaId",
-                table: "IncidenciaPartido",
-                column: "IncidenciaId");
+                name: "IX_Paises_Codigo",
+                table: "Paises",
+                column: "Codigo",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Incidencias_SeleccionId",
-                table: "Incidencias",
-                column: "SeleccionId");
+                name: "IX_Paises_Nombre",
+                table: "Paises",
+                column: "Nombre",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Paises_RegionId",
@@ -257,14 +220,26 @@ namespace LogicaAccesoDatos.Migrations
                 column: "GrupoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Partidos_EstadoId",
-                table: "Partidos",
-                column: "EstadoId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Partidos_HoraId",
                 table: "Partidos",
                 column: "HoraId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Partidos_Seleccion1Id",
+                table: "Partidos",
+                column: "Seleccion1Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Partidos_Seleccion2Id",
+                table: "Partidos",
+                column: "Seleccion2Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Selecciones_Email",
+                table: "Selecciones",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Selecciones_GrupoId",
@@ -278,6 +253,13 @@ namespace LogicaAccesoDatos.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Selecciones_Telefono",
+                table: "Selecciones",
+                column: "Telefono",
+                unique: true,
+                filter: "[Telefono] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SeleccionPartido_SeleccionId",
                 table: "SeleccionPartido",
                 column: "SeleccionId");
@@ -286,28 +268,19 @@ namespace LogicaAccesoDatos.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "IncidenciaPartido");
-
-            migrationBuilder.DropTable(
                 name: "PartidoGrupo");
 
             migrationBuilder.DropTable(
                 name: "SeleccionPartido");
 
             migrationBuilder.DropTable(
-                name: "Incidencias");
-
-            migrationBuilder.DropTable(
                 name: "Partidos");
 
             migrationBuilder.DropTable(
-                name: "Selecciones");
-
-            migrationBuilder.DropTable(
-                name: "Estados");
-
-            migrationBuilder.DropTable(
                 name: "Horarios");
+
+            migrationBuilder.DropTable(
+                name: "Selecciones");
 
             migrationBuilder.DropTable(
                 name: "Grupos");

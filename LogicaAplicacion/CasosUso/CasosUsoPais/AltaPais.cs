@@ -4,6 +4,7 @@ using LogicaNegocio.InterfacesRepositorios;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Excepciones;
 
 namespace LogicaAplicacion.CasosUso.CasosUsoPais
 {
@@ -26,9 +27,12 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPais
                 nuevo.Validar();               
                 RepoPaises.Add(nuevo);
             }
+            catch(PaisException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
-                if (e.Message.Contains("ERROR PAIS")) throw e;
                 throw new Exception("No se pudo dar de alta el pais", e);
             }
         }
@@ -39,7 +43,7 @@ namespace LogicaAplicacion.CasosUso.CasosUsoPais
             List<string> regiones = new List<string> { "África", "América", "Asia", "Europa", "Oceania" };
             if (!regiones.Contains(region.Nombre))
             {
-                throw new Exception("ERROR PAIS |La región debe ser un continente válido");
+                throw new PaisException("La región debe ser un continente válido");
             }
 
         }

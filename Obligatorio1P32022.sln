@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMVC", "WebMVC\WebMVC.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{83DC40C4-343F-4120-B484-B9983FA285E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excepciones", "Excepciones\Excepciones.csproj", "{837971BF-DFFC-4181-ADB4-BCA8A6DC1DE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{83DC40C4-343F-4120-B484-B9983FA285E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83DC40C4-343F-4120-B484-B9983FA285E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83DC40C4-343F-4120-B484-B9983FA285E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{837971BF-DFFC-4181-ADB4-BCA8A6DC1DE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{837971BF-DFFC-4181-ADB4-BCA8A6DC1DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{837971BF-DFFC-4181-ADB4-BCA8A6DC1DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{837971BF-DFFC-4181-ADB4-BCA8A6DC1DE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

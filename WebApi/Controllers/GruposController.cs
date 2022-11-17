@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Excepciones;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -65,10 +66,13 @@ namespace WebApi.Controllers
                 RepoGrupos.Add(grupo);
                 return Created("api/grupos/" + grupo.Id, grupo);
             }
+            catch (GrupoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("ERROR GRUPO")) return BadRequest(ex.Message);
-                return StatusCode(500);
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -83,10 +87,13 @@ namespace WebApi.Controllers
                 RepoGrupos.Update(grupo);
                 return Ok(grupo);
             }
+            catch (GrupoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("ERROR GRUPO")) return BadRequest(ex.Message);
-                return StatusCode(500);
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -100,9 +107,12 @@ namespace WebApi.Controllers
                 RepoGrupos.Remove(id);
                 return NoContent();
             }
+            catch (GrupoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
-                if (ex.InnerException.Message.Contains("ERROR GRUPO")) return BadRequest(ex.InnerException.Message);
                 return StatusCode(500, ex.Message);
             }
         }

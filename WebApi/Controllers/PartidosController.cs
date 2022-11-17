@@ -1,4 +1,5 @@
-﻿using LogicaNegocio.Dominio;
+﻿using Excepciones;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorios;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,9 +23,18 @@ namespace WebApi.Controllers
         }
         // GET: api/<PartidosController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                IEnumerable<Partido> partidos = RepoPartidos.FindAll();
+                if (partidos.Count() == 0) return NotFound();
+                return Ok(partidos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // GET api/<PartidosController>/5
@@ -38,9 +48,9 @@ namespace WebApi.Controllers
                 if (buscado == null) return NotFound();
                 return Ok(buscado);
             }
-            catch
+            catch (Exception ex)
             {
-                return StatusCode(500);
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -51,16 +61,21 @@ namespace WebApi.Controllers
             try
             {
                 if (partido == null) return BadRequest("Body vacío");
-                Estado estadoPartido = new Estado();
-                estadoPartido.EstadoPartido = "PENDIENTE";
-                partido.Estado = estadoPartido;
+                partido.Estado = "Pendiente";
                 RepoPartidos.Add(partido);
                 return Created("api/partidos/" + partido.Id, partido);
             }
+            catch (PartidoException)
+            {
+                throw;
+            }
+            catch (HoraException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("ERROR PARTIDO") || ex.Message.Contains("ERROR HORARIO")) return BadRequest(ex.Message);
-                return StatusCode(500);
+                return StatusCode(500, ex.Message);
             }
         }
 

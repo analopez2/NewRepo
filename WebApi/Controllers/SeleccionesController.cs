@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Excepciones;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -65,10 +66,13 @@ namespace WebApi.Controllers
                 RepoSelecciones.Add(seleccion);
                 return Created("api/selecciones/" + seleccion.Id, seleccion);
             }
+            catch (SeleccionException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("ERROR SELECCION")) return BadRequest(ex.Message);
-                return StatusCode(500);                
+                return StatusCode(500, ex.Message);                
             }
         }
 
@@ -83,10 +87,13 @@ namespace WebApi.Controllers
                 RepoSelecciones.Update(seleccion);
                 return Ok(seleccion);
             }
+            catch (SeleccionException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("ERROR SELECCION")) return BadRequest(ex.Message);
-                return StatusCode(500);
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -100,9 +107,12 @@ namespace WebApi.Controllers
                 RepoSelecciones.Remove(id);
                 return NoContent();
             }
+            catch (SeleccionException ex)
+            {
+                return BadRequest(ex);
+            }
             catch (Exception ex)
             {
-                if (ex.InnerException.Message.Contains("ERROR SELECCION")) return BadRequest(ex.InnerException.Message);
                 return StatusCode(500, ex.Message);
             }
         }
