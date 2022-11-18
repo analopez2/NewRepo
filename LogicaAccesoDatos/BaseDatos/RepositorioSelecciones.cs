@@ -57,9 +57,9 @@ namespace LogicaAccesoDatos.BaseDatos
                 Contexto.Selecciones.Remove(seleccionABorrar);
                 Contexto.SaveChanges();
             }
-            catch(SeleccionException)
+            catch(SeleccionException e)
             {
-                throw;
+                return;
             }
             catch (Exception e)
             {

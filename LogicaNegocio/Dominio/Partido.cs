@@ -17,6 +17,8 @@ namespace LogicaNegocio.Dominio
         public Horario Hora { get; set; }       
         public string Estado { get; set; }
 
+        public int GolesS1 { get; set; }
+        public int GolesS2 { get; set; }
         public int CantidadRojasS1 { get; set; }
         public int CantidadRojasS2 { get; set; }
         public int CantidadAmarillasS1 { get; set; }
