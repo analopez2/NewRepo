@@ -81,8 +81,23 @@ namespace WebApi.Controllers
 
         // PUT api/<PartidosController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Partido partido)
         {
+            try
+            {
+                if (id == 0 || partido == null) return BadRequest("El id no puede ser 0 o faltan datos");
+                partido.Id = id;
+                RepoPartidos.Update(partido);
+                return Ok(partido);
+            }
+            catch (SeleccionException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // DELETE api/<PartidosController>/5

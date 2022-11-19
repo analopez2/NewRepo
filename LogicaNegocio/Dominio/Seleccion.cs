@@ -24,7 +24,6 @@ namespace LogicaNegocio.Dominio
         public Grupo Grupo { get; set; }
         public int GrupoId { get; set; }
 
-        [JsonIgnore]
         public IEnumerable<SeleccionPartido> SeleccionPartido { get; set; }
 
         public void Validar()
