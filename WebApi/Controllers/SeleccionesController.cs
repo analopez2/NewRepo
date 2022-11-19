@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Excepciones;
+using DTOS;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -64,16 +65,24 @@ namespace WebApi.Controllers
             {
                 IEnumerable<Seleccion> selecciones = RepoSelecciones.FindAll();
                 IEnumerable<Seleccion>  seleccionesGrupo = selecciones.Where(s => s.Grupo.Nombre == nombre).ToList();
-               
+                List<DtoSeleccion> seleccionesResult = new List<DtoSeleccion>();
+
                 foreach (var s in seleccionesGrupo)
                 {
+                    DtoSeleccion dtoSeleccion = new DtoSeleccion();
                     int golesAFavor = RepoSelecciones.CalcularGolesAFavor(s);
                     int golesEnContra = RepoSelecciones.CalcularGolesEnContra(s);
                     int diferenciaDeGoles = golesAFavor - golesEnContra;
-                    
+                    dtoSeleccion.nombre = s.Nombre;
+                    dtoSeleccion.puntos = s.Puntos;
+                    dtoSeleccion.golesAFavor = golesAFavor;
+                    dtoSeleccion.golesEnContra = golesEnContra;
+                    dtoSeleccion.difGoles = diferenciaDeGoles;
+
+                    seleccionesResult.Add(dtoSeleccion);
                 }
-                if (seleccionesGrupo.Count() == 0) return NotFound();
-                return Ok(seleccionesGrupo);
+                if (seleccionesResult.Count() == 0) return NotFound();
+                return Ok(seleccionesResult);
             }
             catch (Exception ex)
             {

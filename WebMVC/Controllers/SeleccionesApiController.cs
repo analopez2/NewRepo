@@ -1,4 +1,5 @@
-﻿using LogicaAplicacion.InterfacesCasosUso.ICasosUsoGrupos;
+﻿using DTOS;
+using LogicaAplicacion.InterfacesCasosUso.ICasosUsoGrupos;
 using LogicaAplicacion.InterfacesCasosUso.ICasosUsoPais;
 using LogicaNegocio.Dominio;
 using Microsoft.AspNetCore.Mvc;
@@ -355,8 +356,40 @@ namespace WebMVC.Controllers
 
                 return s;
             }
-            
-            private HttpResponseMessage Message(string url)
+        
+        public ActionResult BuscarPorGrupo(string nombreGrupo)
+        {
+            List<DtoSeleccion> seleccionesPorGrupo = new List<DtoSeleccion>();
+            try
+            {
+                HttpClient cliente = new HttpClient();
+
+                Task<HttpResponseMessage> tarea1 = cliente.GetAsync(UrlSelecciones + "/grupo/" + nombreGrupo);
+                tarea1.Wait();
+
+                HttpResponseMessage respuesta = tarea1.Result;
+
+                string txt = ObtenerBody(respuesta);
+
+                if (respuesta.IsSuccessStatusCode) //status code de la serie 200
+                {
+                    seleccionesPorGrupo = JsonConvert.DeserializeObject<List<DtoSeleccion>>(txt);
+                    return View(seleccionesPorGrupo);
+                }
+                else
+                {
+                    ViewBag.Error = "No se pudo obtener la lista de selecciones por grupo. Error: " + respuesta.ReasonPhrase + " " + txt;
+                    return View(seleccionesPorGrupo);
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log? 
+                ViewBag.Error = "Ups! Ocurrión un error " + ex.Message;
+                return View(seleccionesPorGrupo);
+            }
+        }
+        private HttpResponseMessage Message(string url)
             {
                 HttpClient cliente = new HttpClient();
 
