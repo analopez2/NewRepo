@@ -21,10 +21,11 @@
 
             </div>
             <div class="form-group">
-                
+
                 <input asp-for="seleccion.GrupoId" id="GrupoId" class="form-control" />
-               
+
             </div>
+            <image src="/Banderas/@Model.seleccion.Pais.Bandera" height="50px"></image>
             <div class="form-group">
                 <label asp-for="seleccion.Nombre" class="control-label"></label>
                 <input asp-for="seleccion.Nombre" class="form-control" />
@@ -46,6 +47,7 @@
                 <span asp-validation-for="seleccion.CantPotencialApostadores" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="seleccion.Pais" class="control-label"></label>
                 <select class="form-control" name="IdPaisSeleccionado" id="paises">
                     @if (Model.paises != null)
                     {@foreach (var pais in Model.paises)
@@ -56,6 +58,7 @@
                 </select>
             </div>
             <div class="form-group">
+                <label asp-for="seleccion.Grupo.Nombre" class="control-label"></label>
                 <select class="form-control" name="IdGrupoSeleccionado" id="grupos">
                     @if (Model.grupos != null)
                     {@foreach (var grupo in Model.grupos)
