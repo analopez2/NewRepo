@@ -35,7 +35,7 @@ namespace WebMVC
         {
             services.AddControllersWithViews();
             //Contexto EntityFramework
-            string strCon = Configuration.GetConnectionString("ConeccionAna");
+            string strCon = Configuration.GetConnectionString("ConeccionAlvaro");
             services.AddDbContext<LibreriaContext>(options => options.UseSqlServer(strCon));
             // INYECCIONES PARA CONTROLLERS(CU)
             services.AddScoped<IAltaPais, AltaPais>();
@@ -55,7 +55,9 @@ namespace WebMVC
             services.AddScoped<IRepositorioRegiones, RepositorioRegiones>();
             services.AddScoped<IRepositorioSelecciones, RepositorioSelecciones>();
             services.AddScoped<IRepositorioGrupos, RepositorioGrupos>();
-           
+
+            services.AddSession();
+
 
         }
 
@@ -74,13 +76,15 @@ namespace WebMVC
 
             app.UseRouting();
 
+            app.UseSession();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=SeleccionesApi}/{action=Index}/{id?}");
+                    pattern: "{controller=Usuarios}/{action=Login}/{id?}");
             });
         }
     }
