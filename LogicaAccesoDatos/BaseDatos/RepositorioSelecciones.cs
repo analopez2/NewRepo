@@ -18,11 +18,6 @@ namespace LogicaAccesoDatos.BaseDatos
             Contexto = ctx;
         }
 
-        public int CalcularPuntos(List<Partido> partidos)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Add(Seleccion obj)
         {
             try
@@ -57,7 +52,7 @@ namespace LogicaAccesoDatos.BaseDatos
                 Contexto.Selecciones.Remove(seleccionABorrar);
                 Contexto.SaveChanges();
             }
-            catch(SeleccionException e)
+            catch(SeleccionException)
             {
                 return;
             }
@@ -121,6 +116,48 @@ namespace LogicaAccesoDatos.BaseDatos
             {
                 throw new Exception("No se pudieron encontrar selecciones", e);
             }
+        }
+
+        public int CalcularGolesAFavor(Seleccion seleccion)
+        {
+            int golesAFavor = 0;
+            foreach (var sp in seleccion.SeleccionPartido)
+            {
+                List<Partido> partidos = Contexto.Partidos.Where(p => p.Seleccion1.Id == seleccion.Id || p.Seleccion2.Id == seleccion.Id).ToList();
+                foreach (var p in partidos)
+                {
+                    if (seleccion.Id == p.Seleccion1.Id)
+                    {
+                        golesAFavor += p.GolesS1;
+                    }
+                    if (seleccion.Id == p.Seleccion2.Id)
+                    {
+                        golesAFavor += p.GolesS2;
+                    }
+                }
+            }
+            return golesAFavor;
+        }
+
+        public int CalcularGolesEnContra(Seleccion seleccion)
+        {
+            int golesEnContra = 0;
+            foreach (var sp in seleccion.SeleccionPartido)
+            {
+                List<Partido> partidos = Contexto.Partidos.Where(p => p.Seleccion1.Id == seleccion.Id || p.Seleccion2.Id == seleccion.Id).ToList();
+                foreach (var p in partidos)
+                {
+                    if (seleccion.Id == p.Seleccion1.Id)
+                    {
+                        golesEnContra += p.GolesS2;
+                    }
+                    if (seleccion.Id == p.Seleccion2.Id)
+                    {
+                        golesEnContra += p.GolesS1;
+                    }
+                }
+            }
+            return golesEnContra;
         }
     }
 }

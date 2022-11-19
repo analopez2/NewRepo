@@ -7,6 +7,8 @@ namespace LogicaNegocio.InterfacesRepositorios
 {
    public interface IRepositorioSelecciones:IRepositorio<Seleccion>
     {
-        int CalcularPuntos(List<Partido> partidos);
+        int CalcularGolesAFavor(Seleccion seleccion);
+        int CalcularGolesEnContra(Seleccion seleccion);
+
     }
 }

@@ -56,6 +56,30 @@ namespace WebApi.Controllers
 
         }
 
+        // GET api/selecciones/grupo/A
+        [HttpGet("grupo/{nombre}")]
+        public IActionResult GetTablaPos(string nombre)
+        {
+            try
+            {
+                IEnumerable<Seleccion> selecciones = RepoSelecciones.FindAll();
+                IEnumerable<Seleccion>  seleccionesGrupo = selecciones.Where(s => s.Grupo.Nombre == nombre).ToList();
+               
+                foreach (var s in seleccionesGrupo)
+                {
+                    int golesAFavor = RepoSelecciones.CalcularGolesAFavor(s);
+                    int golesEnContra = RepoSelecciones.CalcularGolesEnContra(s);
+                    int diferenciaDeGoles = golesAFavor - golesEnContra;
+                    dtoSeleccion.nombre = 
+                }
+                if (seleccionesGrupo.Count() == 0) return NotFound();
+                return Ok(seleccionesGrupo);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
         // POST api/<SeleccionesController>
         [HttpPost]
         public IActionResult Post([FromBody] Seleccion seleccion)

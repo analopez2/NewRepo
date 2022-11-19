@@ -149,12 +149,24 @@ namespace LogicaAccesoDatos.BaseDatos
             }
         }
 
-        public void Update(Partido obj)
+        public void Update(Partido partido)
         {
             try
             {
-                obj.Validar();
-                Contexto.Partidos.Update(obj);
+                partido.Validar();
+                Seleccion seleccion1 = Contexto.Selecciones.Find(partido.Seleccion1.Id);
+                Seleccion seleccion2 = Contexto.Selecciones.Find(partido.Seleccion2.Id);
+                Horario horarioPartido = Contexto.Horarios.Where(h => h.Hora == partido.Hora.Hora).SingleOrDefault();
+                if (horarioPartido == null)
+                {
+                    throw new PartidoException("El horario indicado no es un horario válido");
+                }
+                ActualizarPuntosSelecciones(partido, seleccion1, seleccion2);
+                partido.Seleccion1 = seleccion1;
+                partido.Seleccion2 = seleccion2;
+                partido.Hora = horarioPartido;
+                partido.Estado = "FINALIZADO";
+                Contexto.Partidos.Update(partido);
                 Contexto.SaveChanges();
             }
             catch (Exception e)
@@ -162,5 +174,35 @@ namespace LogicaAccesoDatos.BaseDatos
                 throw new Exception("No se pudo actualizar el partido", e);
             }
         }
+
+        private void ActualizarPuntosSelecciones(Partido partido, Seleccion seleccion1, Seleccion seleccion2)
+        {
+
+            if (partido.GolesS1 > partido.GolesS2)
+            {
+                int puntosSeleccion1 = 3;
+                seleccion1.Puntos += puntosSeleccion1;
+
+                Contexto.Selecciones.Update(seleccion1);
+            }
+            else if (partido.GolesS1 < partido.GolesS2)
+            {
+                int puntosSeleccion2 = 3;
+                seleccion2.Puntos += puntosSeleccion2;
+
+                Contexto.Selecciones.Update(seleccion2);
+            }
+            else
+            {
+                int puntosSeleccion1 = 1;
+                int puntosSeleccion2 = 1;
+                seleccion1.Puntos += puntosSeleccion1;
+                seleccion2.Puntos += puntosSeleccion2;
+
+                Contexto.Selecciones.Update(seleccion1);
+                Contexto.Selecciones.Update(seleccion2);
+            }
+        }
+
     }
 }
