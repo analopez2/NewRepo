@@ -70,7 +70,7 @@ namespace WebApi.Controllers
                     int golesAFavor = RepoSelecciones.CalcularGolesAFavor(s);
                     int golesEnContra = RepoSelecciones.CalcularGolesEnContra(s);
                     int diferenciaDeGoles = golesAFavor - golesEnContra;
-                    dtoSeleccion.nombre = 
+                    
                 }
                 if (seleccionesGrupo.Count() == 0) return NotFound();
                 return Ok(seleccionesGrupo);
