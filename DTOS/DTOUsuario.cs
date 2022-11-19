@@ -9,6 +9,6 @@ namespace DTOS
         public int Id { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public IEnumerable<string> UsuarioRol { get; set; }
+        public List<DTOUsuarioRol> UsuarioRol { get; set; }
     }
 }
