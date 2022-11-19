@@ -120,23 +120,33 @@ namespace LogicaAccesoDatos.BaseDatos
 
         public int CalcularGolesAFavor(Seleccion seleccion)
         {
-            int golesAFavor = 0;
-            foreach (var sp in seleccion.SeleccionPartido)
+            try
             {
-                List<Partido> partidos = Contexto.Partidos.Where(p => p.Seleccion1.Id == seleccion.Id || p.Seleccion2.Id == seleccion.Id).ToList();
-                foreach (var p in partidos)
+                int golesAFavor = 0;
+                foreach (var sp in seleccion.SeleccionPartido)
                 {
-                    if (seleccion.Id == p.Seleccion1.Id)
+                    int seleccionID = sp.SeleccionId;
+                    IEnumerable<Partido> partidos = Contexto.Partidos.Where(p => p.Seleccion1.Id == sp.SeleccionId || p.Seleccion2.Id == sp.SeleccionId).ToList();
+                    
+                    foreach (var pa in partidos)
                     {
-                        golesAFavor += p.GolesS1;
-                    }
-                    if (seleccion.Id == p.Seleccion2.Id)
-                    {
-                        golesAFavor += p.GolesS2;
+                        if (seleccion.Id == pa.Seleccion1.Id)
+                        {
+                            golesAFavor += pa.GolesS1;
+                        }
+                        if (seleccion.Id == pa.Seleccion2.Id)
+                        {
+                            golesAFavor += pa.GolesS2;
+                        }
                     }
                 }
+                return golesAFavor;
             }
-            return golesAFavor;
+            catch(Exception e)
+            {
+                throw e;
+            }
+            
         }
 
         public int CalcularGolesEnContra(Seleccion seleccion)
